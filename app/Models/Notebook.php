@@ -17,11 +17,4 @@ class Notebook extends Model
 		 */
 		parent::__construct();
 	}
-
-	public function getAll(): iterable
-	{
-		return $this->db()
-			->query("SELECT * FROM {$this->table}")
-			->fetchAll(\PDO::FETCH_ASSOC);
-	}
 }

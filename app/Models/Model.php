@@ -64,11 +64,16 @@ abstract class Model implements ModelInterface
 	}
 
 	/**
-	 * Abstract method for getting all records from database.
+	 * Method for getting all records from database.
 	 *
 	 * @return array
 	 */
-	abstract public function getAll(): iterable;
+	public function getAll(): iterable {
+
+		return $this->db()
+			->query("SELECT * FROM {$this->table}")
+			->fetchAll(\PDO::FETCH_ASSOC);
+	}
 
 	/**
 	 * @param int $id
