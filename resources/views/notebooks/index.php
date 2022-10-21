@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <section>
-        <h1>Homepage - notebooks</h1>
+<?php
+include("../resources/views/layouts/header.php");
+?>
+
+<section class="w-full px-6 pb-12 antialiased bg-white">
+    <div class="px-10 py-24 mx-auto max-w-7xl">
+        <h1 class="text-3xl font-bold">Homepage - notebooks</h1>
 
         <table>
             <thead>
@@ -45,6 +41,9 @@
             <?php } ?>
             </tbody>
         </table>
-    <section>
-</body>
-</html>
+    </div>
+<section>
+
+<?php
+include("../resources/views/layouts/footer.php");
+?>

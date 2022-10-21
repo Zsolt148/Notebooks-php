@@ -7,5 +7,5 @@
  */
 function view($view = null, array $data = []) {
 
-    return APP_ROOT . '/views/' . $view;
+    return APP_ROOT . '/resources/views/' . $view;
 }

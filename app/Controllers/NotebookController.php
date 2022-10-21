@@ -17,6 +17,7 @@ class NotebookController extends Controller
 		$show = $routes->get('notebooks.show')->getPath();
 		$edit = $routes->get('notebooks.edit')->getPath();
 
+		// Fetch all notebooks
 		$notebooks = Notebook::query()->getAll();
 
         return require_once view('notebooks/index.php');

@@ -6,8 +6,10 @@ use Symfony\Component\Routing\RouteCollection;
 // Routes system
 $routes = new RouteCollection();
 
+$routes->add('home', new Route('/', ['controller' => 'HomeController', 'method'=>'index']));
+
 // Notebooks CRUD
-$routes->add('notebooks', new Route('/notebooks', ['controller' => 'NotebookController', 'method'=>'index'], []));
+$routes->add('notebooks', new Route('/notebooks', ['controller' => 'NotebookController', 'method'=>'index']));
 $routes->add('notebooks.show', new Route('/notebooks/{id}', ['controller' => 'NotebookController', 'method'=>'show'], ['id' => '[0-9]+']));
 $routes->add('notebooks.create', new Route('/notebooks/create', ['controller' => 'NotebookController', 'method'=>'create']));
 $routes->add('notebooks.store', new Route('/notebooks/create', ['controller' => 'NotebookController', 'method'=>'store']));
