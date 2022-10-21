@@ -23,22 +23,24 @@
                 <td>price</td>
                 <td>processor_id</td>
                 <td>opsystem_id</td>
+                <td></td>
             </tr>
             </thead>
             <tbody>
             <?php foreach($notebooks as $n) { ?>
                 <tr>
-                    <td><?php $n['id'] ?></td>
-                    <td><?php $n['manufacturer'] ?></td>
-                    <td><?php $n['type'] ?></td>
-                    <td><?php $n['display'] ?></td>
-                    <td><?php $n['memory'] ?></td>
-                    <td><?php $n['harddisk'] ?></td>
-                    <td><?php $n['videocontroller'] ?></td>
-                    <td><?php $n['price'] ?></td>
-                    <td><?php $n['processor_id'] ?></td>
-                    <td><?php $n['opsystem_id'] ?></td>
-                    <td><a href="<?php str_replace('{id}', $n['id'], $route)?>">View</a></td>
+                    <td><?php echo $n['id']; ?></td>
+                    <td><?php echo $n['manufacturer']; ?></td>
+                    <td><?php echo $n['type']; ?></td>
+                    <td><?php echo $n['display']; ?></td>
+                    <td><?php echo $n['memory']; ?></td>
+                    <td><?php echo $n['harddisk']; ?></td>
+                    <td><?php echo $n['videocontroller']; ?></td>
+                    <td><?php echo $n['price']; ?></td>
+                    <td><?php echo $n['processor_id']; ?></td>
+                    <td><?php echo $n['opsystem_id']; ?></td>
+                    <td><a href="<?php echo str_replace('{id}', $n['id'], $show);?>">View</a></td>
+                    <td><a href="<?php echo str_replace('{id}', $n['id'], $edit);?>">Edit</a></td>
                 </tr>
             <?php } ?>
             </tbody>

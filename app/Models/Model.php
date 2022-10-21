@@ -28,7 +28,7 @@ abstract class Model implements ModelInterface
 	public function __construct() {
 
 		if(!$this->table) {
-			throw new Exception("Table is not set");
+			throw new Exception("Model table is not set");
 		}
 
 		if (static::$db === null) {
@@ -48,6 +48,14 @@ abstract class Model implements ModelInterface
 	}
 
 	/**
+	 * @return static
+	 */
+	public static function query()
+	{
+		return (new static);
+	}
+
+	/**
 	 * @return int
 	 */
 	public function getId(): int
@@ -61,6 +69,17 @@ abstract class Model implements ModelInterface
 	 * @return array
 	 */
 	abstract public function getAll(): iterable;
+
+	/**
+	 * @param int $id
+	 * @return mixed
+	 */
+	public function find(int $id)
+	{
+		return $this->db()
+			->query("SELECT * FROM {$this->table} WHERE id=$id")
+			->fetch(\PDO::FETCH_ASSOC);
+	}
 
 	/**
 	 * The insert method.
