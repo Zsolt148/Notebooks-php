@@ -3,7 +3,15 @@
     "description": "Simple MVC PHP framework for notebooks php.",
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
-        }
+            "App\\": "app/",
+            "Database\\": "database/"
+        },
+        "files": [
+            "app/Helpers/helpers.php"
+        ]
+    },
+    "require": {
+        "symfony/routing": "^6.0",
+        "symfony/http-foundation": "^6.0"
     }
 }

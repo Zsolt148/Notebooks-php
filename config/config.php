@@ -10,6 +10,6 @@ define('URL_SUBFOLDER', '');
 //DB Params
 define('DB_HOST', '127.0.0.1');
 define('DB_PORT', '3306');
-define('DB_NAME', 'database');
-define('DB_USER', 'username');
-define('DB_PASS', 'password');
+define('DB_NAME', 'notebooks');
+define('DB_USER', 'root');
+define('DB_PASS', 'redalert');
