@@ -1,0 +1,9 @@
+{
+    "name": "zsolt148/notebooks-php",
+    "description": "Simple MVC PHP framework for notebooks php.",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}
