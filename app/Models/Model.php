@@ -89,12 +89,6 @@ abstract class Model implements ModelInterface
 	/**
 	 * The insert method.
 	 *
-	 * This method makes it easy to insert data into the database
-	 * in a quick and easy way. The data set must be associative.
-	 * Index of array represents the field in the database.
-	 *
-	 * For example: [ "fist_name" => "John" ]
-	 *
 	 * @param array $data A set of data to be added to the database.
 	 *
 	 * @return integer The last insert ID
@@ -109,15 +103,48 @@ abstract class Model implements ModelInterface
 		$values = array_values($data);
 
 		// Prepare statement
-		$stmt = $this->db()->prepare("
-            INSERT INTO " . $this->table . "(" . implode(",", $fields) . ")
-            VALUES(" . implode(",", $marks) . ")
-        ");
+		$stmt = $this->db()
+			->prepare("
+				INSERT INTO " . $this->table . "(" . implode(",", $fields) . ")
+				VALUES(" . implode(",", $marks) . ")
+			");
 
 		// Execute statement with values
 		$stmt->execute($values);
 
 		// Return last inserted ID.
+		return $this->db()->lastInsertId();
+	}
+
+	/**
+	 * The update method.
+	 *
+	 * @param int $id The ID of the model to be updated.
+	 * @param array $data A set of data to be updated to the database.
+	 *
+	 * @return integer The updated ID
+	 */
+	public function update(int $id, array $data): int {
+
+		// Fields to be added.
+		$set = [];
+		$fields = array_keys($data);
+
+		foreach($fields as $field) {
+			$set[] = "$field = :$field";
+		}
+
+		// Prepare statement
+		$stmt = $this->db()
+			->prepare("
+				UPDATE " . $this->table . " SET " . implode(", ", $set) . "
+				WHERE id = $id;
+			");
+
+		// Execute statement with values
+		$stmt->execute($data);
+
+		// Return last updated ID.
 		return $this->db()->lastInsertId();
 	}
 

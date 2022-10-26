@@ -17,6 +17,16 @@ function route(Route $route, $id = null) : string
 }
 
 /**
+ * @param $url
+ * @param $statusCode
+ * @return void
+ */
+function redirect($url, $statusCode = 303) : void
+{
+	header('Location: ' . $url, true, $statusCode);
+}
+
+/**
  * @param $view
  * @return string
  */

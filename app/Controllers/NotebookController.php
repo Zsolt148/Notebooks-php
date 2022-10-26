@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Helpers\Input;
 use App\Helpers\RouteCollection;
 use App\Models\Notebook;
 
@@ -61,13 +62,37 @@ class NotebookController extends Controller
 		]);
 	}
 
+	/**
+	 * @param int $id
+	 * @return mixed|void
+	 */
 	public function update(int $id)
 	{
-		$notebook = Notebook::query()->find($id);
 		//$post = file_get_contents('php://input');
 		$post = $_POST;
 
-		dd($post);
+		try {
+			Input::check([
+				'manufacturer',
+				'type',
+				'display',
+				'memory'
+			], $post);
+
+			Input::int($post['memory']);
+
+			//TODO more validation
+
+		} catch(\Exception $e) {
+			return $this->view('notebooks/edit.php', [
+				'notebook' => Notebook::query()->find($id),
+				'errors' => $e->getMessage()
+			]);
+		}
+
+		Notebook::query()->update($id, $post);
+
+		return redirect(route($this->routes->get('notebooks.index')));
 	}
 
 	public function delete(int $id)

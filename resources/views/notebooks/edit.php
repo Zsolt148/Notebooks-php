@@ -6,7 +6,8 @@ include("../resources/views/layouts/header.php");
     <div class="px-10 py-24 mx-auto max-w-7xl">
         <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Edit</h2>
 
-        <form method="POST" action="<?php echo $routes->get('notebooks.update', $notebook['id'])->getPath(); ?>" enctype=”multipart/form-data”>
+        <?php print_r($errors ?? []) ?>
+        <form method="POST" action="<?php echo route($routes->get('notebooks.update'), $notebook['id']); ?>" enctype=”multipart/form-data”>
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                 <div>
                     <label class="text-gray-700" for="manufacturer">Manufacturer</label>

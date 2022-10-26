@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use Exception;
+
 class Input
 {
 	static $errors = true;
@@ -18,7 +20,7 @@ class Input
 		}
 	}
 
-	static function int($val)
+	public static function int($val)
 	{
 		$val = filter_var($val, FILTER_VALIDATE_INT);
 		if($val === false) {
@@ -28,7 +30,7 @@ class Input
 		return $val;
 	}
 
-	static function str($val)
+	public static function str($val)
 	{
 		if(!is_string($val)) {
 			self::throwError('Invalid String', 902);
@@ -37,12 +39,12 @@ class Input
 		return trim(htmlspecialchars($val));
 	}
 
-	static function bool($val)
+	public static function bool($val)
 	{
 		return filter_var($val, FILTER_VALIDATE_BOOLEAN);
 	}
 
-	static function email($val)
+	public static function email($val)
 	{
 		$val = filter_var($val, FILTER_VALIDATE_EMAIL);
 		if($val === false) {
@@ -52,7 +54,7 @@ class Input
 		return $val;
 	}
 
-	static function url($val)
+	public static function url($val)
 	{
 		$val = filter_var($val, FILTER_VALIDATE_URL);
 		if($val === false) {
@@ -62,7 +64,7 @@ class Input
 		return $val;
 	}
 
-	static function tooshort($fieldname, $val, $minimum)
+	public static function tooshort($fieldname, $val, $minimum)
 	{
 		$length = strlen($val);
 		if($length < $minimum) {
@@ -70,7 +72,7 @@ class Input
 		}
 	}
 
-	static function toolong($fieldname, $val, $maximum)
+	public static function toolong($fieldname, $val, $maximum)
 	{
 		$length = strlen($val);
 		if($length > $maximum) {
@@ -78,14 +80,14 @@ class Input
 		}
 	}
 
-	static function badcontent($fieldname, $val)
+	public static function badcontent($fieldname, $val)
 	{
 		if(!preg_match("/^[a-zA-Z0-9 '-]*$/", $val)) {
 			// do error handling
 		}
 	}
 
-	static function throwError($error = 'Error In Processing', $errorCode = 0)
+	public static function throwError($error = 'Error In Processing', $errorCode = 0)
 	{
 		if(self::$errors === true) {
 			throw new Exception($error, $errorCode);
