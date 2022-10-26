@@ -2,33 +2,38 @@
 
 namespace App\Controllers;
 
+use App\Helpers\RouteCollection;
 use App\Models\Notebook;
-use Symfony\Component\Routing\RouteCollection;
 
 class NotebookController extends Controller
 {
 	/**
 	 * @param RouteCollection $routes
+	 */
+	public function __construct(RouteCollection $routes)
+	{
+		parent::__construct($routes);
+	}
+
+	/**
 	 * @return mixed
 	 */
-    public function index(RouteCollection $routes)
+    public function index()
     {
-		// routes
-		$show = $routes->get('notebooks.show')->getPath();
-		$edit = $routes->get('notebooks.edit')->getPath();
-
 		// Fetch all notebooks
 		$notebooks = Notebook::query()->getAll();
 
-        return require_once view('notebooks/index.php');
+        return $this->view('notebooks/index.php', [
+			'notebooks' => $notebooks
+		]);
     }
 
-	public function create(RouteCollection $routes)
+	public function create()
 	{
 
 	}
 
-	public function store(RouteCollection $routes)
+	public function store()
 	{
 
 	}
@@ -38,27 +43,34 @@ class NotebookController extends Controller
 	 * @param int             $id
 	 * @return mixed
 	 */
-    public function show(RouteCollection $routes, int $id)
+    public function show(int $id)
     {
 		$notebook = Notebook::query()->find($id);
 
-		return require_once view('notebooks/show.php');
+		return $this->view('notebooks/show.php', [
+			'notebook' => $notebook
+		]);
     }
 
-	public function edit(RouteCollection $routes, int $id)
+	public function edit(int $id)
 	{
 		$notebook = Notebook::query()->find($id);
 
-		return require_once view('notebooks/edit.php');
+		return $this->view('notebooks/edit.php', [
+			'notebook' => $notebook
+		]);
 	}
 
-	public function update(RouteCollection $routes, int $id)
+	public function update(int $id)
 	{
 		$notebook = Notebook::query()->find($id);
+		//$post = file_get_contents('php://input');
+		$post = $_POST;
 
+		dd($post);
 	}
 
-	public function delete(RouteCollection $routes, int $id)
+	public function delete(int $id)
 	{
 		$notebook = Notebook::query()->find($id);
 

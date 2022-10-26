@@ -1,0 +1,15 @@
+.th-class {
+    @apply px-6 pt-6 pb-4;
+}
+.th-content {
+    @apply inline-flex w-full justify-between cursor-pointer;
+}
+.tr-class {
+    @apply hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none;
+}
+.td-class {
+    @apply border-t dark:border-gray-400;
+}
+.td-content {
+    @apply px-6 py-2 flex items-center focus:outline-none;
+}

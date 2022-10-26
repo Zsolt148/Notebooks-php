@@ -1,12 +1,17 @@
 <?php
 include("../resources/views/layouts/header.php");
 ?>
-
 <section class="w-full px-6 pb-12 antialiased bg-white">
     <div class="px-10 py-24 mx-auto max-w-7xl">
-        <h1 class="text-3xl font-bold">Homepage - notebooks</h1>
+        <h1 class="text-3xl font-bold">Notebooks</h1>
 
-        <table>
+        <pre>
+
+		<?php echo route($routes->get('notebooks.show'), 12); ?>
+		<?php echo route($routes->get('notebooks.show'), 13); ?>
+
+        </pre>
+        <table class="table table-auto">
             <thead>
             <tr>
                 <td>#</td>
@@ -35,8 +40,8 @@ include("../resources/views/layouts/header.php");
                     <td><?php echo $n['price']; ?></td>
                     <td><?php echo $n['processor_id']; ?></td>
                     <td><?php echo $n['opsystem_id']; ?></td>
-                    <td><a href="<?php echo str_replace('{id}', $n['id'], $show);?>">View</a></td>
-                    <td><a href="<?php echo str_replace('{id}', $n['id'], $edit);?>">Edit</a></td>
+                    <td><a href="<?php echo route($routes->get('notebooks.show'), $n['id']); ?>">View</a></td>
+                    <td><a href="<?php echo route($routes->get('notebooks.edit'), $n['id']); ?>">Edit</a></td>
                 </tr>
             <?php } ?>
             </tbody>

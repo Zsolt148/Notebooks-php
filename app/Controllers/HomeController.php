@@ -2,12 +2,20 @@
 
 namespace App\Controllers;
 
-use Symfony\Component\Routing\RouteCollection;
+use App\Helpers\RouteCollection;
 
 class HomeController extends Controller
 {
-	public function index(RouteCollection $routes)
+	/**
+	 * @param RouteCollection $routes
+	 */
+	public function __construct(RouteCollection $routes)
 	{
-		return require_once view('home.php');
+		parent::__construct($routes);
+	}
+
+	public function index()
+	{
+		return $this->view('home.php');
 	}
 }
