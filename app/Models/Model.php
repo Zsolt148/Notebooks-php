@@ -82,8 +82,21 @@ abstract class Model implements ModelInterface
 	public function find(int $id)
 	{
 		return $this->db()
-			->query("SELECT * FROM {$this->table} WHERE id=$id")
+			->query("SELECT * FROM {$this->table} WHERE id = $id")
 			->fetch(\PDO::FETCH_ASSOC);
+	}
+
+	/**
+	 * @param int $id
+	 * @return mixed
+	 */
+	public function findOrFail(int $id)
+	{
+		$data = $this->find($id);
+
+		abort_if(!$data);
+
+		return $data;
 	}
 
 	/**
@@ -105,7 +118,7 @@ abstract class Model implements ModelInterface
 		// Prepare statement
 		$stmt = $this->db()
 			->prepare("
-				INSERT INTO " . $this->table . "(" . implode(",", $fields) . ")
+				INSERT INTO {$this->table} (" . implode(",", $fields) . ")
 				VALUES(" . implode(",", $marks) . ")
 			");
 
@@ -137,7 +150,7 @@ abstract class Model implements ModelInterface
 		// Prepare statement
 		$stmt = $this->db()
 			->prepare("
-				UPDATE " . $this->table . " SET " . implode(", ", $set) . "
+				UPDATE {$this->table} SET " . implode(", ", $set) . "
 				WHERE id = $id;
 			");
 
@@ -146,6 +159,25 @@ abstract class Model implements ModelInterface
 
 		// Return last updated ID.
 		return $this->db()->lastInsertId();
+	}
+
+	/**
+	 * @param int $id
+	 * @return bool
+	 */
+	public function delete(int $id)
+	{
+		// Prepare statement
+		$stmt = $this->db()
+			->prepare("
+				DELETE FROM {$this->table}
+				WHERE id = $id;
+			");
+
+		// Execute statement
+		$stmt->execute();
+
+		return true;
 	}
 
 	/**

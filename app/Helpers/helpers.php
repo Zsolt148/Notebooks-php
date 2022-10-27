@@ -21,9 +21,13 @@ function route(Route $route, $id = null) : string
  * @param $statusCode
  * @return void
  */
-function redirect($url, $statusCode = 303) : void
+function redirect($url, $params = []) : void
 {
-	header('Location: ' . $url, true, $statusCode);
+	if(!empty($params)) {
+		$url .= '?' . http_build_query($params);
+	}
+
+	header('Location: ' . $url, true, 303);
 }
 
 /**
@@ -57,5 +61,21 @@ function abort($code = 404)
 {
 	http_response_code($code);
 
-	return view($code . ".php");
+	die();
+
+	// TODO fix me: return 404.php with routes
+	// return require_once abort() where used
+	//return view($code . ".php");
+}
+
+/**
+ * @param $boolean
+ * @param $code
+ * @return string|void
+ */
+function abort_if($boolean, $code = 404)
+{
+	if($boolean) {
+		return abort($code);
+	}
 }

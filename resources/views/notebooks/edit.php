@@ -6,7 +6,9 @@ include("../resources/views/layouts/header.php");
     <div class="px-10 py-24 mx-auto max-w-7xl">
         <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Edit</h2>
 
-        <?php print_r($errors ?? []) ?>
+        <?php if(isset($errors) && !empty($errors)) { ?>
+
+        <?php } ?>
         <form method="POST" action="<?php echo route($routes->get('notebooks.update'), $notebook['id']); ?>" enctype=”multipart/form-data”>
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                 <div>
@@ -31,6 +33,9 @@ include("../resources/views/layouts/header.php");
             </div>
 
             <div class="flex justify-end mt-6">
+                <div class="py-2 mr-5">
+                    <a class="text-red-600" href="<?php echo route($routes->get('notebooks.delete'), $notebook['id']); ?>">Delete</a>
+                </div>
                 <button type="submit" class="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
                     Save
                 </button>

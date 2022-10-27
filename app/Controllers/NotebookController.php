@@ -46,7 +46,7 @@ class NotebookController extends Controller
 	 */
     public function show(int $id)
     {
-		$notebook = Notebook::query()->find($id);
+		$notebook = Notebook::query()->findOrFail($id);
 
 		return $this->view('notebooks/show.php', [
 			'notebook' => $notebook
@@ -55,7 +55,7 @@ class NotebookController extends Controller
 
 	public function edit(int $id)
 	{
-		$notebook = Notebook::query()->find($id);
+		$notebook = Notebook::query()->findOrFail($id);
 
 		return $this->view('notebooks/edit.php', [
 			'notebook' => $notebook
@@ -85,19 +85,26 @@ class NotebookController extends Controller
 
 		} catch(\Exception $e) {
 			return $this->view('notebooks/edit.php', [
-				'notebook' => Notebook::query()->find($id),
+				'notebook' => Notebook::query()->findOrFail($id),
 				'errors' => $e->getMessage()
 			]);
 		}
 
 		Notebook::query()->update($id, $post);
 
-		return redirect(route($this->routes->get('notebooks.index')));
+		return redirect(route($this->routes->get('notebooks.index')), [
+			'status' => 'Successfully updated',
+		]);
 	}
 
 	public function delete(int $id)
 	{
-		$notebook = Notebook::query()->find($id);
+		$notebook = Notebook::query()->delete($id);
 
+		if($notebook) {
+			return redirect(route($this->routes->get('notebooks.index')), [
+				'status' => 'Successfully deleted',
+			]);
+		}
 	}
 }

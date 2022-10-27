@@ -19,6 +19,6 @@ class Router
 			return $route->handle($routes, $id);
 		}
 
-		return require_once abort();
+		return abort();
 	}
 }
