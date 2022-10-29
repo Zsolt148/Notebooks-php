@@ -29,11 +29,17 @@ class NotebookController extends Controller
 		]);
     }
 
+	/**
+	 * @return mixed
+	 */
 	public function create()
 	{
 		return $this->view('notebooks/create.php');
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function store()
 	{
 		$post = $_POST;
@@ -55,6 +61,12 @@ class NotebookController extends Controller
 				'errors' => $e->getMessage()
 			]);
 		}
+
+		// Notebook::query()->insert($post); TODO add more fields to work
+
+		return redirect(route($this->routes->get('notebooks.index')), [
+			'status' => 'Successfully created',
+		]);
 	}
 
 	/**
@@ -71,6 +83,10 @@ class NotebookController extends Controller
 		]);
     }
 
+	/**
+	 * @param int $id
+	 * @return mixed
+	 */
 	public function edit(int $id)
 	{
 		$notebook = Notebook::query()->findOrFail($id);
@@ -115,6 +131,10 @@ class NotebookController extends Controller
 		]);
 	}
 
+	/**
+	 * @param int $id
+	 * @return void
+	 */
 	public function delete(int $id)
 	{
 		$notebook = Notebook::query()->delete($id);

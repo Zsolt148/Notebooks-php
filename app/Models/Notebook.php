@@ -6,15 +6,18 @@ class Notebook extends Model
 {
 	protected $table = "notebooks";
 
+	protected $fillable = [
+		'manufacturer',
+		'type',
+		'display',
+		'memory'
+	];
+
 	/**
 	 * The model construct
 	 *
 	 */
 	public function __construct() {
-
-		/**
-		 * The database table name.
-		 */
 		parent::__construct();
 	}
 }

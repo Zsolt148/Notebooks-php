@@ -8,6 +8,13 @@ use Exception;
 abstract class Model implements ModelInterface
 {
 	/**
+	 * Fillable fields in the database
+	 *
+	 * @var array
+	 */
+	protected $fillable = [];
+
+	/**
 	 * It represents a PDO instance
 	 *
 	 * @var object
@@ -19,7 +26,7 @@ abstract class Model implements ModelInterface
 	 *
 	 * @var string
 	 */
-	protected $table;
+	protected $table = null;
 
 	/**
 	 * The model construct
@@ -50,7 +57,7 @@ abstract class Model implements ModelInterface
 	/**
 	 * @return static
 	 */
-	public static function query()
+	public static function query() : static
 	{
 		return (new static);
 	}
@@ -112,6 +119,7 @@ abstract class Model implements ModelInterface
 		$marks = array_fill(0, count($data), '?');
 		// Fields to be added.
 		$fields = array_keys($data);
+		$this->checkFillableFields($fields);
 		// Fields values
 		$values = array_values($data);
 
@@ -143,6 +151,8 @@ abstract class Model implements ModelInterface
 		$set = [];
 		$fields = array_keys($data);
 
+		$this->checkFillableFields($fields);
+
 		foreach($fields as $field) {
 			$set[] = "$field = :$field";
 		}
@@ -165,7 +175,7 @@ abstract class Model implements ModelInterface
 	 * @param int $id
 	 * @return bool
 	 */
-	public function delete(int $id)
+	public function delete(int $id) : bool
 	{
 		// Prepare statement
 		$stmt = $this->db()
@@ -187,5 +197,19 @@ abstract class Model implements ModelInterface
 	 */
 	public function db(): \PDO {
 		return static::$db;
+	}
+
+	/**
+	 * @param array $fields
+	 * @return void
+	 * @throws Exception
+	 */
+	private function checkFillableFields(array $fields)
+	{
+		if(!arrays_equals($this->fillable, $fields)) {
+			throw new Exception(
+				"Fillable model fields are not same as create/update SQL fields. (Fillable fields: " . implode(', ', $this->fillable) . ")."
+			);
+		}
 	}
 }

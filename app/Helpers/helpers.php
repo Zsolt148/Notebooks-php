@@ -2,6 +2,11 @@
 
 use App\Helpers\Route;
 
+function app($class)
+{
+	//TODO make reflection class to resolve dependecies
+}
+
 /**
  * @param Route $route
  * @param       $id
@@ -24,6 +29,7 @@ function route(Route $route, $id = null) : string
 function redirect($url, $params = []) : void
 {
 	if(!empty($params)) {
+		// TODO make these POST params not GET
 		$url .= '?' . http_build_query($params);
 	}
 
@@ -78,4 +84,21 @@ function abort_if($boolean, $code = 404)
 	if($boolean) {
 		return abort($code);
 	}
+}
+
+function isUrl($url)
+{
+
+}
+
+/**
+ * @param array $a
+ * @param array $b
+ * @return bool
+ */
+function arrays_equals(array $a, array $b) {
+	return (
+		count($a) == count($b)
+		&& array_diff($a, $b) === array_diff($b, $a)
+	);
 }

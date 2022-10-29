@@ -7,11 +7,11 @@ use App\Helpers\RouteCollection;
 
 $routes = new RouteCollection();
 
-$routes->add('home', new Route('/', [HomeController::class, 'index']));
-$routes->add('notebooks.index', new Route('/notebooks', [NotebookController::class, 'index']));
-$routes->add('notebooks.create', new Route('/notebooks/create', [NotebookController::class, 'create']));
-$routes->add('notebooks.store', new Route('/notebooks/store', [NotebookController::class, 'store']));
-$routes->add('notebooks.show', new Route('/notebooks/{id}', [NotebookController::class, 'show']));
-$routes->add('notebooks.edit', new Route('/notebooks/{id}/edit', [NotebookController::class, 'edit']));
-$routes->add('notebooks.update', new Route('/notebooks/{id}/update', [NotebookController::class, 'update']));
-$routes->add('notebooks.delete', new Route('/notebooks/{id}/delete', [NotebookController::class, 'delete']));
+$routes->add('home', Route::get('/', [HomeController::class, 'index']));
+$routes->add('notebooks.index', Route::get('/notebooks', [NotebookController::class, 'index']));
+$routes->add('notebooks.create', Route::get('/notebooks/create', [NotebookController::class, 'create']));
+$routes->add('notebooks.store', Route::post('/notebooks/store', [NotebookController::class, 'store']));
+$routes->add('notebooks.show', Route::get('/notebooks/{id}', [NotebookController::class, 'show']));
+$routes->add('notebooks.edit', Route::get('/notebooks/{id}/edit', [NotebookController::class, 'edit']));
+$routes->add('notebooks.update', Route::post('/notebooks/{id}/update', [NotebookController::class, 'update']));
+$routes->add('notebooks.delete', Route::post('/notebooks/{id}/delete', [NotebookController::class, 'delete']));

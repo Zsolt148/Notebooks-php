@@ -18,7 +18,7 @@ abstract class Controller
 
 	/**
 	 * @param string $view
-	 * @param        $variables
+	 * @param        $variables - key/value pairs
 	 * @return mixed
 	 */
 	public function view(string $view, $variables = [])
