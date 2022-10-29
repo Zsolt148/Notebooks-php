@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS `notebooks`
+DROP DATABASE IF EXISTS `notebooks`;
 CREATE DATABASE IF NOT EXISTS `notebooks`
 CHARACTER SET utf8 COLLATE utf8_general_ci;
 
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `gep` (
   `oprendszerid` int(10) NOT NULL,
   `db` int(10) NOT NULL,
   PRIMARY KEY (`gepid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 INSERT INTO `gep` (`gepid`, `gyarto`, `tipus`, `kijelzo`, `memoria`, `merevlemez`, `videovezerlo`, `ar`, `processzorid`, `oprendszerid`, `db`) VALUES
 (1, 'HP', 'COMPAQ 615 NX556EA', 15.6, 1024, 160, 'ATi Mobility Radeon HD3200 256MB', 95120, 1, 1, 0),
@@ -42,13 +42,13 @@ INSERT INTO `gep` (`gepid`, `gyarto`, `tipus`, `kijelzo`, `memoria`, `merevlemez
 (20, 'TOSHIBA', 'Satellite L300-24P', 15.4, 2048, 160, 'Intel Graphics 4500MHD', 98000, 12, 1, 0),
 (21, 'MSI', 'VR603X-094HU', 15.4, 4096, 320, 'Intel Graphics 4500MHD', 99600, 12, 1, 5),
 (22, 'HP', 'ProBook 4510s NX435EA', 15.6, 2048, 250, 'Intel Graphics 4500MHD', 111920, 12, 1, 1),
-(23, 'FUJITSU', 'Esprimo V6535', 15.4, 1024, 160, 'Intel Graphics 4500MHD' , 95920, 13, 2, 4),
-(24, 'LENOVO', 'IdeaPad G550L' 59-026377, 15.6, 1024, 160, 'Intel Graphics 4500MHD', 94320, 14, 4, 5),
+(23, 'FUJITSU', 'Esprimo V6535', 15.4, 1024, 160, 'Intel Graphics 4500MHD', 95920, 13, 2, 4),
+(24, 'LENOVO', 'IdeaPad G550L 59-026377', 15.6, 1024, 160, 'Intel Graphics 4500MHD', 94320, 14, 4, 5),
 (25, 'HP', 'Presario CQ61-200SH NZ890EA', 15.6, 3072, 320, 'Intel Graphics 4500MHD', 127120, 14, 4, 3),
-(26, 'ACER', 'eMachine E525-302G25Mi', 15.6, 2048, 250, 'Intel Graphics 4500MHD' , 89200, 14, 2, 0),
-(27, 'HP', 'ProBook 4510s NX668EA', 15.6, 2048, 250, 'Intel Graphics 4500MHD' , 113520, 14, 2, 3),
-(28, 'HP', 'ProBook 4310s NX580EA', 13.3, 1024, 160, 'Intel Graphics 4500MHD' , 119920, 14, 2, 3),
-(29, 'ASUS', 'K50IJ-SX036L', 15.6, 2048, 250, 'Intel Graphics X4500M, 94320', 14, 8, 2),
+(26, 'ACER', 'eMachine E525-302G25Mi', 15.6, 2048, 250, 'Intel Graphics 4500MHD', 89200, 14, 2, 0),
+(27, 'HP', 'ProBook 4510s NX668EA', 15.6, 2048, 250, 'Intel Graphics 4500MHD', 113520, 14, 2, 3),
+(28, 'HP', 'ProBook 4310s NX580EA', 13.3, 1024, 160, 'Intel Graphics 4500MHD', 119920, 14, 2, 3),
+(29, 'ASUS', 'K50IJ-SX036L', 15.6, 2048, 250, 'Intel Graphics X4500M', 94320, 14, 8, 2),
 (30, 'ASUS', 'K50IJ-SX153L', 15.6, 4096, 320, 'Intel Graphics X4500M / 256MB', 100720, 14, 8, 0),
 (31, 'MSI', 'CR700X-023HU', 17.3, 3072, 320, 'NVIDIA GeForce Go 8200M 128MB ', 108400, 14, 1, 0),
 (32, 'DELL', 'Vostro V860-111696', 15.6, 1024, 250, 'Intel Graphics x3100', 79920, 17, 2, 3),
@@ -105,7 +105,7 @@ INSERT INTO `gep` (`gepid`, `gyarto`, `tipus`, `kijelzo`, `memoria`, `merevlemez
 (83, 'ASUS', 'Eee PC 1101HA-WHI040X W', 11.6, 1024, 160, 'Intel Graphics 950', 96720, 21, 12, 0),
 (84, 'ASUS', 'Eee PC 1101HA-WHI022M W', 11.6, 2048, 250, 'Intel Graphics 950', 98000, 21, 11, 4),
 (85, 'DELL', 'Inspiron 1010 106752 BLACK', 10.1, 1024, 160, 'Intel Graphics 500', 87920, 22, 12, 0),
-(86, 'ASUS', 'M51VR-AP184C', 15.4, 2048, 250, ,'ATi Mobility Radeon HD3470 256MB', 140720, 23, 6, 4),
+(86, 'ASUS', 'M51VR-AP184C', 15.4, 2048, 250, 'ATi Mobility Radeon HD3470 256MB', 140720, 23, 6, 4),
 (87, 'FUJITSU', 'Esprimo V6535-104060', 15.4, 2048, 250, 'Intel Graphics 4500MHD', 110320, 23, 8, 5),
 (88, 'ACER', 'Extensa 5630G-732G16N', 15.4, 2048, 160, 'NVIDIA GeForce Go 9300M 256MB ', 127920, 24, 6, 0),
 (89, 'DELL', 'Studio XPS 13-711 BLACK', 13.3, 4096, 320, 'NVIDIA GeForce Go 9500M-GS 256MB', 241520, 24, 6, 0),
@@ -164,12 +164,12 @@ INSERT INTO `gep` (`gepid`, `gyarto`, `tipus`, `kijelzo`, `memoria`, `merevlemez
 (142, 'HP', 'COMPAQ 610 NX549EA', 15.6, 1024, 160, 'Intel Graphics x3100', 104990, 34, 1, 1),
 (143, 'HP', 'COMPAQ 610 NX550EA', 15.6, 2048, 320, 'Intel Graphics x3100', 121520, 34, 1, 3),
 (144, 'HP', 'COMPAQ 610 NX552EA', 15.6, 2048, 320, 'Intel Graphics x3100', 125200, 34, 4, 0),
-(145, 'DELL', 'Vostro A860-111877', 15.6, 2048, 250, 'Intel Graphics x3100' , 94320, 34, 2, 0),
+(145, 'DELL', 'Vostro A860-111877', 15.6, 2048, 250, 'Intel Graphics x3100', 94320, 34, 2, 0),
 (146, 'FUJITSU', 'Esprimo V6555 MPWE5HU', 15.4, 2048, 250, 'NVIDIA GeForce Go 8200M 128MB ', 108000, 34, 2, 2),
 (147, 'MSI', 'VX600X-053HU', 15.4, 4096, 500, 'ATi Mobility Radeon HD3410 256MB', 136400, 35, 1, 0),
 (148, 'FUJITSU', 'Esprimo V6545-104064', 15.4, 2048, 250, 'ATi Mobility Radeon HD3450 256MB', 143920, 35, 2, 4),
 (149, 'FUJITSU', 'Amilo PI 3525', 15.4, 2048, 320, 'Intel Graphics 4500MHD', 111111, 35, 8, 3),
-(150, 'FUJITSU', 'Esprimo V6505-104063', 15.4, 2048, 250, 'Intel Graphics 4500MHD' , 135920, 35, 2, 0),
+(150, 'FUJITSU', 'Esprimo V6505-104063', 15.4, 2048, 250, 'Intel Graphics 4500MHD', 135920, 35, 2, 0),
 (151, 'MSI', 'CX600X-042HU', 16, 4096, 500, 'ATi Mobility Radeon HD4330 256MB', 149600, 36, 8, 1),
 (152, 'DELL', 'Inspiron 1545-699 BLUE', 15.6, 4096, 320, 'ATi Mobility Radeon HD4330 256MB', 159920, 36, 6, 2),
 (153, 'DELL', 'Studio 1555-635 RED', 15.6, 4096, 500, 'ATi Mobility Radeon HD4570 512MB', 176720, 36, 1, 5),
@@ -187,7 +187,7 @@ INSERT INTO `gep` (`gepid`, `gyarto`, `tipus`, `kijelzo`, `memoria`, `merevlemez
 (165, 'MSI', 'EX627X-400HU', 16, 4096, 500, 'ATi Mobility Radeon HD4570 512MB', 164720, 38, 1, 5),
 (166, 'ASUS', 'U80V-WX101V', 14, 4096, 500, 'ATi Mobility Radeon HD4570 512MB', 199120, 38, 10, 3),
 (167, 'LENOVO', 'IdeaPad G550A 59-026421', 15.6, 3072, 320, 'Intel Graphics 4500MHD', 135920, 38, 1, 5),
-(168, 'ACER', 'Aspire 5738-663G32MN Linux', 15.6, 3072, 320, 'Intel Graphics 4500MHD' , 123920, 38, 2, 2),
+(168, 'ACER', 'Aspire 5738-663G32MN Linux', 15.6, 3072, 320, 'Intel Graphics 4500MHD', 123920, 38, 2, 2),
 (169, 'ASUS', 'K50IJ-SX152L', 15.6, 4096, 320, 'Intel Graphics X4500M / 256MB', 119920, 38, 8, 0),
 (170, 'ASUS', 'K50IN-SX155L', 15.6, 3072, 250, 'NVIDIA GeForce G102M/512MB ', 126320, 38, 2, 4),
 (171, 'ASUS', 'K50IN-SX157L', 15.6, 4096, 500, 'NVIDIA GeForce G102M/512MB ', 131920, 38, 2, 2),
@@ -214,20 +214,20 @@ INSERT INTO `gep` (`gepid`, `gyarto`, `tipus`, `kijelzo`, `memoria`, `merevlemez
 (192, 'ACER', 'Aspire Timeline 4810TZ-413G25MN', 14.1, 3072, 250, 'Intel Graphics 4500MHD', 150000, 46, 10, 5),
 (193, 'TOSHIBA', 'Satellite T130-10G', 13.3, 4096, 320, 'Intel Graphics X4500M / 256MB', 151920, 46, 10, 5),
 (194, 'FUJITSU', 'Esprimo V6545', 15.4, 2048, 250, 'ATi Mobility Radeon HD3450 256MB', 110320, 23, 2, 1),
-(195, 'TOSHIBA', 'Satellite A300-22Z', 15.4, 2048, 320, ,'ATi Mobility Radeon HD3470 256MB', 126000, 23, 8, 5),
-(196, 'FUJITSU', 'Esprimo V6505', 15.4, 2048, 250, 'Intel Graphics 4500MHD' , 111111, 23, 2, 2),
-(197, 'FUJITSU', 'Amilo PI' 3540-104877, 15.4, 3072, 250, 'NVIDIA GeForce Go 9300M 256MB ', 115920, 23, 8, 5),
+(195, 'TOSHIBA', 'Satellite A300-22Z', 15.4, 2048, 320,'ATi Mobility Radeon HD3470 256MB', 126000, 23, 8, 5),
+(196, 'FUJITSU', 'Esprimo V6505', 15.4, 2048, 250, 'Intel Graphics 4500MHD', 111111, 23, 2, 2),
+(197, 'FUJITSU', 'Amilo PI 3540-104877', 15.4, 3072, 250, 'NVIDIA GeForce Go 9300M 256MB ', 115920, 23, 8, 5),
 (198, 'MSI', 'VX600X-206HU', 15.4, 4096, 320, 'ATi Mobility Radeon HD3410 256MB', 121520, 48, 1, 4),
-(199, 'TOSHIBA', 'Satellite A300-29K', 15.4, 2048, 320, ,'ATi Mobility Radeon HD3470 256MB', 125520, 48, 8, 3),
-(200, 'TOSHIBA', 'Satellite A300-22W', 15.4, 3072, 320, ,'ATi Mobility Radeon HD3470 256MB', 131920, 48, 6, 5),
-(201, 'TOSHIBA', 'Satellite A300-29J', 15.4, 4096, 320, ,'ATi Mobility Radeon HD3470 256MB', 135120, 48, 6, 3),
+(199, 'TOSHIBA', 'Satellite A300-29K', 15.4, 2048, 320,'ATi Mobility Radeon HD3470 256MB', 125520, 48, 8, 3),
+(200, 'TOSHIBA', 'Satellite A300-22W', 15.4, 3072, 320,'ATi Mobility Radeon HD3470 256MB', 131920, 48, 6, 5),
+(201, 'TOSHIBA', 'Satellite A300-29J', 15.4, 4096, 320,'ATi Mobility Radeon HD3470 256MB', 135120, 48, 6, 3),
 (202, 'MSI', 'CX600X-018HU', 16, 4096, 320, 'ATi Mobility Radeon HD4330 256MB', 114800, 48, 8, 0),
 (203, 'MSI', 'CX700X-013HU', 17.3, 4096, 320, 'ATi Mobility Radeon HD4330 256MB', 133520, 48, 8, 1),
 (204, 'HP', 'Pavilion DV6-1120EH NM629EA', 15.6, 3072, 250, 'ATi Mobility Radeon HD4530 512MB', 183992, 48, 6, 3),
 (205, 'ASUS', 'F83SE-VX039', 14, 4096, 500, 'ATi Mobility Radeon HD4570 512MB', 138320, 48, 8, 5),
 (206, 'TOSHIBA', 'Satellite L300-2CE', 15.4, 2048, 250, 'Intel Graphics 4500MHD', 103600, 48, 8, 1),
 (207, 'FUJITSU', 'Esprimo V6535-104061', 15.4, 4096, 320, 'Intel Graphics 4500MHD', 118320, 48, 8, 3),
-(208, 'FUJITSU', 'Amilo Li 3910-UW5HU', 18,4, 4096, 320, 'Intel Graphics 4500MHD', 123920, 48, 8, 3),
+(208, 'FUJITSU', 'Amilo Li 3910-UW5HU', 18.4, 4096, 320, 'Intel Graphics 4500MHD', 123920, 48, 8, 3),
 (209, 'ASUS', 'K50IJ-SX025L', 15.6, 4096, 320, 'Intel Graphics 4500MHD', 125520, 48, 8, 3),
 (210, 'HP', 'Presario CQ61-110eh NT353EA', 15.6, 2048, 250, 'Intel Graphics 4500MHD', 131920, 48, 4, 4),
 (211, 'HP', 'ProBook 4510s VC179ES', 15.6, 3072, 320, 'Intel Graphics 4500MHD', 134320, 48, 1, 3),
@@ -246,7 +246,7 @@ INSERT INTO `gep` (`gepid`, `gyarto`, `tipus`, `kijelzo`, `memoria`, `merevlemez
 (224, 'LENOVO', 'IdeaPad G550L 59-026359', 15.6, 3072, 320, 'Intel Graphics 4500MHD', 103920, 49, 1, 0),
 (225, 'TOSHIBA', 'Satellite L300-2C5', 15.4, 2048, 250, 'Intel Graphics 4500MHD', 110320, 49, 6, 3),
 (226, 'ACER', 'Aspire 5738Z-434G32MN', 15.6, 4096, 320, 'Intel Graphics 4500MHD', 126320, 49, 6, 3),
-(227, 'ACER', 'Extensa 5635Z-431G16MN', 15.6, 1024, 160, 'Intel Graphics 4500MHD' , 94320, 49, 2, 1),
+(227, 'ACER', 'Extensa 5635Z-431G16MN', 15.6, 1024, 160, 'Intel Graphics 4500MHD', 94320, 49, 2, 1),
 (228, 'TOSHIBA', 'Satellite L500-1EQ', 15.6, 2048, 320, 'Intel Graphics X4500M / 256MB', 103920, 49, 1, 1),
 (229, 'ASUS', 'K50IJ-SX148L', 15.6, 2048, 250, 'Intel Graphics X4500M / 256MB', 103920, 49, 8, 1),
 (230, 'TOSHIBA', 'Satellite L500-1GE', 15.6, 4096, 320, 'Intel Graphics X4500M / 256MB', 103920, 49, 1, 4),
@@ -261,16 +261,17 @@ INSERT INTO `gep` (`gepid`, `gyarto`, `tipus`, `kijelzo`, `memoria`, `merevlemez
 (239, 'ASUS', 'K70IO-TY068V', 17.3, 4096, 250, 'NVIDIA GeForce GT120M 1GB', 156720, 49, 9, 0),
 (240, 'ASUS', 'K61IC-JX018D', 15.6, 4096, 500, 'NVIDIA GeForce GT220M 1GB', 143920, 49, 8, 1),
 (241, 'LENOVO', 'U350 BLACK', 13.3, 2048, 250, 'Intel Graphics 4500MHD', 111920, 51, 4, 0),
-(242, 'MSI', 'X340-037HU', 13,4, 2048, 320, 'Intel Graphics 4500MHD', 135920, 51, 6, 5),
+(242, 'MSI', 'X340-037HU', 13.4, 2048, 320, 'Intel Graphics 4500MHD', 135920, 51, 6, 5),
 (243, 'LENOVO', 'IdeaPad S12 Black', 12, 1024, 160, 'VIA S3 Chrome 9', 97520, 52, 12, 4),
 (244, 'LENOVO', 'IdeaPad S12 White', 12, 1024, 160, 'VIA S3 Chrome 9', 97520, 52, 12, 4),
 (245, 'ASUS', 'K51AC-SX037D', 15.6, 2048, 250, 'ATi Mobility Radeon HD3200 256MB', 98320, 53, 8, 1),
-(246, 'ASUS', 'K50AB-SX073D', 15.6, 3072, 250, 'ATi Mobility Radeon HD4570 512MB', 107120, 53, 8,3,  5);
+(246, 'ASUS', 'K50AB-SX073D', 15.6, 3072, 250, 'ATi Mobility Radeon HD4570 512MB', 107120, 53, 8, 5);
 
 CREATE TABLE IF NOT EXISTS `oprendszer` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nev` varchar(15) COLLATE utf8_hungarian_ci NOT NULL,
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 INSERT INTO `oprendszer` (`id`, `nev`) VALUES
 ('1', 'FreeDOS'),
@@ -290,7 +291,8 @@ CREATE TABLE IF NOT EXISTS `processzor` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `gyarto` varchar(15) COLLATE utf8_hungarian_ci NOT NULL,
   `tipus` varchar(30) COLLATE utf8_hungarian_ci NOT NULL,
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 INSERT INTO `processzor` (`id`, `gyarto`, `tipus`) VALUES
 ('1', 'AMD', 'Athlon 64 X2 QL64'),
@@ -344,4 +346,5 @@ CREATE TABLE IF NOT EXISTS `felhasznalok` (
   `keresztnev` varchar(30) COLLATE utf8_hungarian_ci NOT NULL,
   `felhasznalonev` varchar(30) COLLATE utf8_hungarian_ci NOT NULL,
   `jelszo` varchar(30) COLLATE utf8_hungarian_ci NOT NULL,
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
