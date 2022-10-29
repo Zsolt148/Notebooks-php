@@ -52,4 +52,4 @@
     </div>
 </section>
 
-<main>
+<main class="overflow-x-hidden">

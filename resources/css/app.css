@@ -1,6 +1,5 @@
 @tailwind base;
 @tailwind components;
-@import 'table.css';
 @tailwind utilities;
 
 @layer base {
@@ -30,5 +29,21 @@
 
     a {
         @apply underline text-indigo-600 hover:text-indigo-400
+    }
+
+    .th-class {
+        @apply text-lg px-2 py-5;
+    }
+    .th-content {
+        @apply inline-flex w-full justify-between cursor-pointer;
+    }
+    .tr-class {
+        @apply border-t border-gray-600 hover:bg-gray-100 focus:outline-none;
+    }
+    .td-class {
+
+    }
+    .td-content {
+        @apply px-2 py-2 flex items-center focus:outline-none;
     }
 }

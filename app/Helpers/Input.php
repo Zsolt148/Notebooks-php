@@ -15,7 +15,7 @@ class Input
 		}
 		foreach($arr as $value) {
 			if(empty($on[$value])) {
-				self::throwError('Data is missing', 900);
+				self::throwError(ucfirst($value) . ' field is required', 900);
 			}
 		}
 	}

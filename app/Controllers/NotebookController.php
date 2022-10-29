@@ -31,12 +31,30 @@ class NotebookController extends Controller
 
 	public function create()
 	{
-
+		return $this->view('notebooks/create.php');
 	}
 
 	public function store()
 	{
+		$post = $_POST;
 
+		try {
+			Input::check([
+				'manufacturer',
+				'type',
+				'display',
+				'memory'
+			], $post);
+
+			Input::int($post['memory']);
+
+			//TODO more validation
+
+		} catch(\Exception $e) {
+			return $this->view('notebooks/create.php', [
+				'errors' => $e->getMessage()
+			]);
+		}
 	}
 
 	/**
