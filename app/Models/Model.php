@@ -1,11 +1,13 @@
 <?php 
 namespace App\Models;
 
-use Database\Sql;
+use App\Interfaces\CrudInterface;
 use App\Interfaces\ModelInterface;
+use Database\Sql;
 use Exception;
+use PDO;
 
-abstract class Model implements ModelInterface
+abstract class Model implements ModelInterface, CrudInterface
 {
 	/**
 	 * Fillable fields in the database
@@ -32,25 +34,19 @@ abstract class Model implements ModelInterface
 	 * The model construct
 	 *
 	 */
-	public function __construct() {
-
+	public function __construct()
+	{
+		// protected $table must be set
 		if(!$this->table) {
 			throw new Exception("Model table is not set");
 		}
 
+		// Set static db
 		if (static::$db === null) {
-
-			$db = new Sql();
-
-			if(!$db->setConnection(DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME)) {
-				throw new Exception("Nem sikerült beállítani az adatokat!");
-			}
-
-			if(!$db->makeConnection()) {
-				throw new Exception("Sikertelen SQL kapcsolodás!");
-			}
-
-			static::$db = $db->pdo;
+			static::$db = Sql::make()
+				->setConnection(DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME)
+				->makeConnection()
+				->pdo;
 		}
 	}
 
@@ -75,11 +71,11 @@ abstract class Model implements ModelInterface
 	 *
 	 * @return array
 	 */
-	public function getAll(): iterable {
-
+	public function getAll(): iterable
+	{
 		return $this->db()
 			->query("SELECT * FROM {$this->table}")
-			->fetchAll(\PDO::FETCH_ASSOC);
+			->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -90,7 +86,7 @@ abstract class Model implements ModelInterface
 	{
 		return $this->db()
 			->query("SELECT * FROM {$this->table} WHERE id = $id")
-			->fetch(\PDO::FETCH_ASSOC);
+			->fetch(PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -113,7 +109,8 @@ abstract class Model implements ModelInterface
 	 *
 	 * @return integer The last insert ID
 	 */
-	public function insert(array $data): int {
+	public function insert(array $data): int
+	{
 
 		// Question marks
 		$marks = array_fill(0, count($data), '?');
@@ -145,7 +142,10 @@ abstract class Model implements ModelInterface
 	 *
 	 * @return integer The updated ID
 	 */
-	public function update(int $id, array $data): int {
+	public function update(int $id, array $data): int
+	{
+
+		$this->findOrFail($id);
 
 		// Fields to be added.
 		$set = [];
@@ -177,6 +177,8 @@ abstract class Model implements ModelInterface
 	 */
 	public function delete(int $id) : bool
 	{
+		$this->findOrFail($id);
+
 		// Prepare statement
 		$stmt = $this->db()
 			->prepare("
@@ -195,7 +197,8 @@ abstract class Model implements ModelInterface
 	 *
 	 * @return object
 	 */
-	public function db(): \PDO {
+	public function db(): PDO
+	{
 		return static::$db;
 	}
 
@@ -204,7 +207,7 @@ abstract class Model implements ModelInterface
 	 * @return void
 	 * @throws Exception
 	 */
-	private function checkFillableFields(array $fields)
+	private function checkFillableFields(array $fields) : void
 	{
 		if(!arrays_equals($this->fillable, $fields)) {
 			throw new Exception(

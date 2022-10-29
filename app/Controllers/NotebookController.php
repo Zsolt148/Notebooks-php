@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Helpers\Input;
 use App\Helpers\RouteCollection;
 use App\Models\Notebook;
+use Exception;
 
 class NotebookController extends Controller
 {
@@ -56,7 +57,7 @@ class NotebookController extends Controller
 
 			//TODO more validation
 
-		} catch(\Exception $e) {
+		} catch(Exception $e) {
 			return $this->view('notebooks/create.php', [
 				'errors' => $e->getMessage()
 			]);
@@ -117,7 +118,7 @@ class NotebookController extends Controller
 
 			//TODO more validation
 
-		} catch(\Exception $e) {
+		} catch(Exception $e) {
 			return $this->view('notebooks/edit.php', [
 				'notebook' => Notebook::query()->findOrFail($id),
 				'errors' => $e->getMessage()

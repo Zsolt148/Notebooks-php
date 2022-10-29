@@ -10,7 +10,7 @@ class Notebook extends Model
 		'manufacturer',
 		'type',
 		'display',
-		'memory'
+		'memory',
 	];
 
 	/**

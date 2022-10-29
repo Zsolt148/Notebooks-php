@@ -14,4 +14,4 @@ $routes->add('notebooks.store', Route::post('/notebooks/store', [NotebookControl
 $routes->add('notebooks.show', Route::get('/notebooks/{id}', [NotebookController::class, 'show']));
 $routes->add('notebooks.edit', Route::get('/notebooks/{id}/edit', [NotebookController::class, 'edit']));
 $routes->add('notebooks.update', Route::post('/notebooks/{id}/update', [NotebookController::class, 'update']));
-$routes->add('notebooks.delete', Route::post('/notebooks/{id}/delete', [NotebookController::class, 'delete']));
+$routes->add('notebooks.delete', Route::get('/notebooks/{id}/delete', [NotebookController::class, 'delete']));

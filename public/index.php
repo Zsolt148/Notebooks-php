@@ -2,10 +2,11 @@
 
 use App\Helpers\Router;
 
-// Load Config
-require_once 'config/config.php';
 // Load autoload
 require_once 'vendor/autoload.php';
+
+// Load Config
+require_once 'config/config.php';
 
 // Routes
 require_once 'routes/web.php';

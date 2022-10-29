@@ -1,5 +1,7 @@
 <?php
-//site name
+// Do not push changes to git
+
+//Site name
 define('SITE_NAME', 'Notebooks-php');
 
 //App Root

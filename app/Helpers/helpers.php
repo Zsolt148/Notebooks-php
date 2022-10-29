@@ -1,10 +1,16 @@
 <?php
 
+use App\Helpers\ReflectionResolver;
 use App\Helpers\Route;
 
+/**
+ * @param $class
+ * @return object
+ * @throws ReflectionException
+ */
 function app($class)
 {
-	//TODO make reflection class to resolve dependecies
+	return ReflectionResolver::resolve($class);
 }
 
 /**
@@ -47,13 +53,16 @@ function view($view = null) {
 /**
  * Dump and die
  *
- * @param $data
+ * @param $params
  * @return void
  */
-function dd($data)
+function dd(...$params)
 {
 	echo"<pre>";
-	var_dump($data);
+	foreach($params as $data) {
+		var_dump($data);
+		echo"<br>";
+	}
 	echo"</pre>";
 
 	die();
@@ -71,7 +80,7 @@ function abort($code = 404)
 
 	// TODO fix me: return 404.php with routes
 	// return require_once abort() where used
-	//return view($code . ".php");
+	// return view($code . ".php");
 }
 
 /**
@@ -86,9 +95,26 @@ function abort_if($boolean, $code = 404)
 	}
 }
 
+/**
+ * Preg match url
+ *
+ * @param $url
+ * @return bool
+ */
 function isUrl($url)
 {
+	return (bool) preg_match("/$url/", parse_url($_SERVER['REQUEST_URI'])['path']);
+}
 
+/**
+ * Checks if current route is current url
+ *
+ * @param Route $route
+ * @return bool
+ */
+function isRoute(Route $route)
+{
+	return $route->getPath() == parse_url($_SERVER['REQUEST_URI'])['path'];
 }
 
 /**
@@ -98,7 +124,7 @@ function isUrl($url)
  */
 function arrays_equals(array $a, array $b) {
 	return (
-		count($a) == count($b)
-		&& array_diff($a, $b) === array_diff($b, $a)
+		count($a) == count($b) &&
+		array_diff($a, $b) === array_diff($b, $a)
 	);
 }

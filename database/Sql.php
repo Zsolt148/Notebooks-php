@@ -2,41 +2,67 @@
 
 namespace Database;
 
+use Exception;
+use PDO;
 use PDOException;
 
 class Sql
 {
-	private $sql_host;
-	private $sql_port;
-	private $sql_user;
-	private $sql_pass;
-	private $sql_datab;
+	private $host;
+	private $port;
+	private $user;
+	private $pass;
+	private $database;
 
-	public $pdo;
+	/**
+	 * @var PDO $pdo
+	 */
+	public PDO $pdo;
 
-	public function setConnection($sql_host, $sql_port, $sql_user, $sql_pass, $sql_datab) {
-		$this->sql_host = $sql_host;
-		$this->sql_port = $sql_port;
-		$this->sql_user = $sql_user;
-		$this->sql_pass = $sql_pass;
-		$this->sql_datab = $sql_datab;
-		return true;
+	/**
+	 * @return static
+	 */
+	public static function make() : static
+	{
+		return (new static);
 	}
 
+	/**
+	 * @param $host
+	 * @param $port
+	 * @param $user
+	 * @param $pass
+	 * @param $database
+	 * @return $this
+	 */
+	public function setConnection($host, $port, $user, $pass, $database): self
+	{
+		$this->host = $host;
+		$this->port = $port;
+		$this->user = $user;
+		$this->pass = $pass;
+		$this->database = $database;
+
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 * @throws Exception
+	 */
 	public function makeConnection() {
 
-		$dsn = 'mysql:host=' . $this->sql_host . ';port=' . $this->sql_port . ';dbname=' . $this->sql_datab . '';
-		$username = $this->sql_user;
-		$password = $this->sql_pass;
+		$dsn = 'mysql:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->database;
 
 		try {
-			$this->pdo = new \PDO($dsn, $username, $password);
-			$this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+			$this->pdo = new PDO($dsn, $this->user, $this->pass);
+			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-			return true;
+			return $this;
 
 		} catch(PDOException $e) {
-			return false;
+			echo "Sikertelen SQL kapcsolodás: " . $e->getMessage() . "<br>";
+			throw new Exception($e->getMessage());
 		}
 	}
 }
