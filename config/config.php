@@ -8,8 +8,8 @@ define('URL_ROOT', '/');
 define('URL_SUBFOLDER', '');
 
 //DB Params
-define('DB_HOST', '127.0.0.1');
-define('DB_PORT', '3306');
-define('DB_NAME', '');
-define('DB_USER', '');
+define('DB_HOST', 'localhost');
+define('DB_PORT', '8080');
+define('DB_NAME', 'notebooks');
+define('DB_USER', 'admin');
 define('DB_PASS', '');
