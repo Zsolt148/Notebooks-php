@@ -15,3 +15,4 @@ $routes->add('notebooks.show', Route::get('/notebooks/{id}', [NotebookController
 $routes->add('notebooks.edit', Route::get('/notebooks/{id}/edit', [NotebookController::class, 'edit']));
 $routes->add('notebooks.update', Route::post('/notebooks/{id}/update', [NotebookController::class, 'update']));
 $routes->add('notebooks.delete', Route::get('/notebooks/{id}/delete', [NotebookController::class, 'delete']));
+$routes->add('mnb', Route::get('/mnb', [MNBController::class, 'mnb']));
