@@ -11,6 +11,7 @@ require_once __DIR__ . '/../config/config.php';
 // Routes
 require_once __DIR__ . '/../routes/web.php';
 
+// Start session
 session_start();
 
 $router = new Router();

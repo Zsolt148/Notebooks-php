@@ -42,10 +42,8 @@ class NotebookController extends Controller
 	 */
 	public function create()
 	{
-		$opsystems = Opsystem::query()->getAll();
-
 		return $this->view('create', [
-			'opsystems' => $opsystems
+			'opsystems' => Opsystem::query()->getAll()
 		]);
 	}
 
@@ -72,7 +70,8 @@ class NotebookController extends Controller
 
 		} catch(Exception $e) {
 			return $this->view('create', [
-				'errors' => $e->getMessage()
+				'errors' => $e->getMessage(),
+				'opsystems' => Opsystem::query()->getAll()
 			]);
 		}
 
