@@ -3,7 +3,7 @@ namespace App\Interfaces;
 
 interface CrudInterface
 {
-	public function getAll(): iterable;
+	public function get(): iterable;
 
 	public function find(int $id);
 

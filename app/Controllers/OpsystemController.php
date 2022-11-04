@@ -4,12 +4,12 @@ namespace App\Controllers;
 
 use App\Helpers\Input;
 use App\Helpers\RouteCollection;
-use App\Models\Notebook;
+use App\Models\Opsystem;
 use Exception;
 
-class NotebookController extends Controller
+class OpsystemController extends Controller
 {
-	protected $folder = 'notebooks';
+	protected $folder = 'opsystems';
 
 	/**
 	 * @param RouteCollection $routes
@@ -24,11 +24,8 @@ class NotebookController extends Controller
 	 */
     public function index()
     {
-		// Fetch all notebooks
-		$notebooks = Notebook::query()->get();
-
         return $this->view('index', [
-			'notebooks' => $notebooks
+			'opsystems' => Opsystem::query()->get()
 		]);
     }
 
@@ -49,15 +46,10 @@ class NotebookController extends Controller
 
 		try {
 			Input::check([
-				'manufacturer',
-				'type',
-				'display',
-				'memory'
+				'os_name',
 			], $post);
 
-			Input::int($post['memory']);
-
-			//TODO more validation
+			Input::str($post['os_name']);
 
 		} catch(Exception $e) {
 			return $this->view('create', [
@@ -65,9 +57,9 @@ class NotebookController extends Controller
 			]);
 		}
 
-		// Notebook::query()->insert($post); TODO add more fields to work
+		 Opsystem::query()->insert($post);
 
-		return redirect(route($this->routes->get('notebooks.index')), [
+		return redirect(route($this->routes->get('opsystems.index')), [
 			'status' => 'Successfully created',
 		]);
 	}
@@ -79,10 +71,8 @@ class NotebookController extends Controller
 	 */
     public function show(int $id)
     {
-		$notebook = Notebook::query()->findOrFail($id);
-
 		return $this->view('show', [
-			'notebook' => $notebook
+			'opsystem' => Opsystem::query()->findOrFail($id)
 		]);
     }
 
@@ -92,10 +82,8 @@ class NotebookController extends Controller
 	 */
 	public function edit(int $id)
 	{
-		$notebook = Notebook::query()->findOrFail($id);
-
 		return $this->view('edit', [
-			'notebook' => $notebook
+			'opsystem' => Opsystem::query()->findOrFail($id)
 		]);
 	}
 
@@ -105,31 +93,25 @@ class NotebookController extends Controller
 	 */
 	public function update(int $id)
 	{
-		//$post = file_get_contents('php://input');
 		$post = $_POST;
 
 		try {
 			Input::check([
-				'manufacturer',
-				'type',
-				'display',
-				'memory'
+				'os_name',
 			], $post);
 
-			Input::int($post['memory']);
-
-			//TODO more validation
+			Input::str($post['os_name']);
 
 		} catch(Exception $e) {
 			return $this->view('edit', [
-				'notebook' => Notebook::query()->findOrFail($id),
+				'opsystem' => Opsystem::query()->findOrFail($id),
 				'errors' => $e->getMessage()
 			]);
 		}
 
-		Notebook::query()->update($id, $post);
+		Opsystem::query()->update($id, $post);
 
-		return redirect(route($this->routes->get('notebooks.index')), [
+		return redirect(route($this->routes->get('opsystems.index')), [
 			'status' => 'Successfully updated',
 		]);
 	}
@@ -140,10 +122,10 @@ class NotebookController extends Controller
 	 */
 	public function delete(int $id)
 	{
-		$notebook = Notebook::query()->delete($id);
+		$opsystem = Opsystem::query()->delete($id);
 
-		if($notebook) {
-			return redirect(route($this->routes->get('notebooks.index')), [
+		if($opsystem) {
+			return redirect(route($this->routes->get('opsystems.index')), [
 				'status' => 'Successfully deleted',
 			]);
 		}

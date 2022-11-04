@@ -46,7 +46,7 @@ abstract class Model implements ModelInterface, CrudInterface
 			static::$db = Sql::make()
 				->setConnection(DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME)
 				->makeConnection()
-				->pdo;
+				->getPdo();
 		}
 	}
 
@@ -71,7 +71,7 @@ abstract class Model implements ModelInterface, CrudInterface
 	 *
 	 * @return array
 	 */
-	public function getAll(): iterable
+	public function get(): iterable
 	{
 		return $this->db()
 			->query("SELECT * FROM {$this->table}")

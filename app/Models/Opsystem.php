@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-class Notebook extends Model
+class Opsystem extends Model
 {
-	protected $table = "notebooks";
+	protected $table = "opsystems";
 
 	protected $fillable = [
-		'manufacturer',
-		'type',
-		'display',
-		'memory',
+		'os_name',
 	];
 
 	/**

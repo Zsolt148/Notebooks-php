@@ -3,13 +3,13 @@
 use App\Helpers\Router;
 
 // Load autoload
-require_once 'vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 // Load Config
-require_once 'config/config.php';
+require_once __DIR__ . '/../config/config.php';
 
 // Routes
-require_once 'routes/web.php';
+require_once __DIR__ . '/../routes/web.php';
 
 $router = new Router();
 $router($routes);

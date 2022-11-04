@@ -17,7 +17,7 @@ class Sql
 	/**
 	 * @var PDO $pdo
 	 */
-	public PDO $pdo;
+	private PDO $pdo;
 
 	/**
 	 * @return static
@@ -64,6 +64,14 @@ class Sql
 			echo "Sikertelen SQL kapcsolodás: " . $e->getMessage() . "<br>";
 			throw new Exception($e->getMessage());
 		}
+	}
+
+	/**
+	 * @return PDO
+	 */
+	public function getPdo() : PDO
+	{
+		return $this->pdo;
 	}
 }
 

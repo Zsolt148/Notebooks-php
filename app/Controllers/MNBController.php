@@ -36,7 +36,10 @@ class MNBController extends Controller
                     'curr2Error' => '',
                     'rate1Error' => '',
                     'rate2Error' => ''];
-        return $this->view('mnb', $data);
+
+        return $this->view('mnb', [
+			'data' => $data
+		]);
     }
 
     /* Get exchange rates between two currencies */
