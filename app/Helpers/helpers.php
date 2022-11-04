@@ -28,18 +28,18 @@ function route(Route $route, $id = null) : string
 }
 
 /**
- * @param $url
- * @param $statusCode
+ * @param string $url
+ * @param string $status
  * @return void
  */
-function redirect($url, $params = []) : void
+function redirect(string $url, string $status = null) : void
 {
-	if(!empty($params)) {
-		// TODO make these POST params not GET
-		$url .= '?' . http_build_query($params);
+	if($status) {
+		$_SESSION['status'] = $status;
 	}
 
 	header('Location: ' . $url, true, 303);
+	exit();
 }
 
 /**

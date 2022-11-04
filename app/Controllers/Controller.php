@@ -13,12 +13,12 @@ abstract class Controller
 
 	/**
 	 * Folder prefix for view
-	 * @var string $folder
+	 * @var string
 	 */
 	protected $folder = null;
 
 	/**
-	 * @param $routes
+	 * @param RouteCollection $routes
 	 */
 	public function __construct(RouteCollection $routes)
 	{
@@ -26,11 +26,11 @@ abstract class Controller
     }
 
 	/**
-	 * @param string $view
-	 * @param        $variables - key/value pairs
+	 * @param string 	$view
+	 * @param array 	$variables - key/value pairs
 	 * @return mixed
 	 */
-	public function view(string $view, $variables = [])
+	public function view(string $view, array $variables = [])
 	{
 		$routes = $this->routes;
 

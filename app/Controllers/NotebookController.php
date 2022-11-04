@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Helpers\Input;
 use App\Helpers\RouteCollection;
 use App\Models\Notebook;
+use App\Models\Opsystem;
 use Exception;
 
 class NotebookController extends Controller
@@ -25,7 +26,11 @@ class NotebookController extends Controller
     public function index()
     {
 		// Fetch all notebooks
-		$notebooks = Notebook::query()->get();
+		$notebooks = Notebook::query()
+			->raw("
+				SELECT notebooks.*, opsystems.id AS op_id, opsystems.os_name FROM notebooks 
+				INNER JOIN opsystems ON notebooks.opsystem_id=opsystems.id ORDER BY notebooks.id
+			");
 
         return $this->view('index', [
 			'notebooks' => $notebooks
@@ -37,7 +42,11 @@ class NotebookController extends Controller
 	 */
 	public function create()
 	{
-		return $this->view('create');
+		$opsystems = Opsystem::query()->getAll();
+
+		return $this->view('create', [
+			'opsystems' => $opsystems
+		]);
 	}
 
 	/**
@@ -52,10 +61,12 @@ class NotebookController extends Controller
 				'manufacturer',
 				'type',
 				'display',
-				'memory'
+				'memory',
+				'opsystem_id'
 			], $post);
 
 			Input::int($post['memory']);
+			Input::int($post['opsystem_id']);
 
 			//TODO more validation
 
@@ -67,9 +78,7 @@ class NotebookController extends Controller
 
 		// Notebook::query()->insert($post); TODO add more fields to work
 
-		return redirect(route($this->routes->get('notebooks.index')), [
-			'status' => 'Successfully created',
-		]);
+		return redirect(route($this->routes->get('notebooks.index')), 'Successfully created');
 	}
 
 	/**
@@ -79,10 +88,8 @@ class NotebookController extends Controller
 	 */
     public function show(int $id)
     {
-		$notebook = Notebook::query()->findOrFail($id);
-
 		return $this->view('show', [
-			'notebook' => $notebook
+			'notebook' => Notebook::query()->findOrFail($id)
 		]);
     }
 
@@ -92,10 +99,9 @@ class NotebookController extends Controller
 	 */
 	public function edit(int $id)
 	{
-		$notebook = Notebook::query()->findOrFail($id);
-
 		return $this->view('edit', [
-			'notebook' => $notebook
+			'notebook' => Notebook::query()->findOrFail($id),
+			'opsystems' => Opsystem::query()->getAll(),
 		]);
 	}
 
@@ -105,7 +111,6 @@ class NotebookController extends Controller
 	 */
 	public function update(int $id)
 	{
-		//$post = file_get_contents('php://input');
 		$post = $_POST;
 
 		try {
@@ -113,25 +118,26 @@ class NotebookController extends Controller
 				'manufacturer',
 				'type',
 				'display',
-				'memory'
+				'memory',
+				'opsystem_id'
 			], $post);
 
 			Input::int($post['memory']);
+			Input::int($post['opsystem_id']);
 
 			//TODO more validation
 
 		} catch(Exception $e) {
 			return $this->view('edit', [
 				'notebook' => Notebook::query()->findOrFail($id),
+				'opsystems' => Opsystem::query()->getAll(),
 				'errors' => $e->getMessage()
 			]);
 		}
 
 		Notebook::query()->update($id, $post);
 
-		return redirect(route($this->routes->get('notebooks.index')), [
-			'status' => 'Successfully updated',
-		]);
+		return redirect(route($this->routes->get('notebooks.index')), 'Successfully updated');
 	}
 
 	/**
@@ -143,9 +149,7 @@ class NotebookController extends Controller
 		$notebook = Notebook::query()->delete($id);
 
 		if($notebook) {
-			return redirect(route($this->routes->get('notebooks.index')), [
-				'status' => 'Successfully deleted',
-			]);
+			return redirect(route($this->routes->get('notebooks.index')), 'Successfully deleted');
 		}
 	}
 }

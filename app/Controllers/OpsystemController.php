@@ -25,7 +25,7 @@ class OpsystemController extends Controller
     public function index()
     {
         return $this->view('index', [
-			'opsystems' => Opsystem::query()->get()
+			'opsystems' => Opsystem::query()->getAll()
 		]);
     }
 
@@ -59,9 +59,7 @@ class OpsystemController extends Controller
 
 		 Opsystem::query()->insert($post);
 
-		return redirect(route($this->routes->get('opsystems.index')), [
-			'status' => 'Successfully created',
-		]);
+		return redirect(route($this->routes->get('opsystems.index')), 'Successfully created');
 	}
 
 	/**
@@ -111,9 +109,7 @@ class OpsystemController extends Controller
 
 		Opsystem::query()->update($id, $post);
 
-		return redirect(route($this->routes->get('opsystems.index')), [
-			'status' => 'Successfully updated',
-		]);
+		return redirect(route($this->routes->get('opsystems.index')), 'Successfully updated');
 	}
 
 	/**
@@ -125,9 +121,7 @@ class OpsystemController extends Controller
 		$opsystem = Opsystem::query()->delete($id);
 
 		if($opsystem) {
-			return redirect(route($this->routes->get('opsystems.index')), [
-				'status' => 'Successfully deleted',
-			]);
+			return redirect(route($this->routes->get('opsystems.index')), 'Successfully deleted');
 		}
 	}
 }

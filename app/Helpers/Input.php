@@ -8,6 +8,12 @@ class Input
 {
 	static $errors = true;
 
+	/**
+	 * @param $arr
+	 * @param $on
+	 * @return void
+	 * @throws Exception
+	 */
 	public static function check($arr, $on = false)
 	{
 		if($on === false) {
@@ -20,6 +26,11 @@ class Input
 		}
 	}
 
+	/**
+	 * @param $val
+	 * @return false|mixed
+	 * @throws Exception
+	 */
 	public static function int($val)
 	{
 		$val = filter_var($val, FILTER_VALIDATE_INT);
@@ -30,6 +41,11 @@ class Input
 		return $val;
 	}
 
+	/**
+	 * @param $val
+	 * @return string
+	 * @throws Exception
+	 */
 	public static function str($val)
 	{
 		if(!is_string($val)) {
@@ -39,11 +55,20 @@ class Input
 		return trim(htmlspecialchars($val));
 	}
 
+	/**
+	 * @param $val
+	 * @return mixed
+	 */
 	public static function bool($val)
 	{
 		return filter_var($val, FILTER_VALIDATE_BOOLEAN);
 	}
 
+	/**
+	 * @param $val
+	 * @return false|mixed
+	 * @throws Exception
+	 */
 	public static function email($val)
 	{
 		$val = filter_var($val, FILTER_VALIDATE_EMAIL);
@@ -54,6 +79,11 @@ class Input
 		return $val;
 	}
 
+	/**
+	 * @param $val
+	 * @return false|mixed
+	 * @throws Exception
+	 */
 	public static function url($val)
 	{
 		$val = filter_var($val, FILTER_VALIDATE_URL);
@@ -64,6 +94,12 @@ class Input
 		return $val;
 	}
 
+	/**
+	 * @param $fieldname
+	 * @param $val
+	 * @param $minimum
+	 * @return void
+	 */
 	public static function tooshort($fieldname, $val, $minimum)
 	{
 		$length = strlen($val);
@@ -72,6 +108,12 @@ class Input
 		}
 	}
 
+	/**
+	 * @param $fieldname
+	 * @param $val
+	 * @param $maximum
+	 * @return void
+	 */
 	public static function toolong($fieldname, $val, $maximum)
 	{
 		$length = strlen($val);
@@ -80,6 +122,11 @@ class Input
 		}
 	}
 
+	/**
+	 * @param $fieldname
+	 * @param $val
+	 * @return void
+	 */
 	public static function badcontent($fieldname, $val)
 	{
 		if(!preg_match("/^[a-zA-Z0-9 '-]*$/", $val)) {
@@ -87,6 +134,12 @@ class Input
 		}
 	}
 
+	/**
+	 * @param $error
+	 * @param $errorCode
+	 * @return void
+	 * @throws Exception
+	 */
 	public static function throwError($error = 'Error In Processing', $errorCode = 0)
 	{
 		if(self::$errors === true) {

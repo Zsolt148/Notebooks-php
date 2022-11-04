@@ -22,7 +22,7 @@ include("resources/views/layouts/header.php");
                     <th class="th-class"><span class="th-content">videocontroller</span></th>
                     <th class="th-class"><span class="th-content">price</span></th>
                     <th class="th-class"><span class="th-content">processor_id</span></th>
-                    <th class="th-class"><span class="th-content">opsystem_id</span></th>
+                    <th class="th-class"><span class="th-content">OS name</span></th>
                     <th class="th-class" colspan="3"><span class="th-content">Admin</span></th>
                 </tr>
                 <tbody>
@@ -56,7 +56,7 @@ include("resources/views/layouts/header.php");
                             <span class="td-content"><?php echo $n['processor_id']; ?></span>
                         </td>
                         <td class="td-class">
-                            <span class="td-content"><?php echo $n['opsystem_id']; ?></span>
+                            <span class="td-content"><?php echo $n['os_name']; ?></span>
                         </td>
                         <td class="td-class">
                             <a class="td-content link" href="<?php echo route($routes->get('notebooks.show'), $n['id']); ?>">

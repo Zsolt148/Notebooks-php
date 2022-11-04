@@ -67,14 +67,32 @@ abstract class Model implements ModelInterface, CrudInterface
 	}
 
 	/**
+	 * @param string $query
+	 * @param        $fetch
+	 * @return mixed
+	 */
+	public function raw(string $query, $fetch = 'fetchAll')
+	{
+		return $this->db()
+			->query($query)
+			->{$fetch}(PDO::FETCH_ASSOC);
+	}
+
+	/**
 	 * Method for getting all records from database.
 	 *
 	 * @return array
 	 */
-	public function get(): iterable
+	public function getAll($joins = null): iterable
 	{
+		$query = "SELECT * FROM {$this->table}";
+
+		if($joins) {
+			$query .= " " . $joins;
+		}
+
 		return $this->db()
-			->query("SELECT * FROM {$this->table}")
+			->query($query)
 			->fetchAll(PDO::FETCH_ASSOC);
 	}
 

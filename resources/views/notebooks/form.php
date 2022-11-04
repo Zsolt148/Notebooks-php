@@ -18,4 +18,13 @@
 		<label class="text-gray-700" for="memory">Memory</label>
 		<input id="memory" name="memory" type="number" value="<?php echo isset($notebook) ? $notebook['memory'] : null ?>" required>
 	</div>
+
+    <div>
+        <label class="text-gray-700" for="opsystem_id">OP system</label>
+        <select name="opsystem_id" id="opsystem_id">
+            <?php foreach($opsystems as $op) { ?>
+                <option value="<?php echo $op['id'] ?>" <?php if(isset($notebook) && $op['id'] == $notebook['opsystem_id']) echo 'selected' ?>><?php echo $op['os_name'] ?></option>
+            <?php } ?>
+        </select>
+    </div>
 </div>

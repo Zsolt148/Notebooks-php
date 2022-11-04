@@ -11,6 +11,7 @@ class Notebook extends Model
 		'type',
 		'display',
 		'memory',
+		'opsystem_id'
 	];
 
 	/**

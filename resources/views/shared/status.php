@@ -1,5 +1,5 @@
-<?php if(isset($_GET['status']) && !empty($_GET['status'])) { ?>
-	<div class="relative items-center w-full py-12 mx-auto">
+<?php if(isset($_SESSION['status']) && !empty($_SESSION['status'])) { ?>
+	<div class="relative items-center w-full py-5 mx-auto">
 		<div class="p-6 border-l-4 border-green-500 -6 rounded-r-xl bg-green-50">
 			<div class="flex">
 				<div class="flex-shrink-0">
@@ -9,10 +9,13 @@
 				</div>
 				<div class="ml-3">
 					<div class="text-sm text-green-700">
-						<p><?php echo $_GET['status']; ?></p>
+						<p><?php echo $_SESSION['status']; ?></p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-<?php } ?>
+<?php
+unset($_SESSION['status']);
+}
+?>
