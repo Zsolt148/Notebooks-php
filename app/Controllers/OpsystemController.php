@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Helpers\Input;
 use App\Helpers\RouteCollection;
 use App\Models\Opsystem;
 use Exception;
@@ -42,14 +41,10 @@ class OpsystemController extends Controller
 	 */
 	public function store()
 	{
-		$post = $_POST;
-
 		try {
-			Input::check([
-				'os_name',
-			], $post);
-
-			Input::str($post['os_name']);
+			$validated = $this->validate([
+				'os_name' => ['required', 'string']
+			]);
 
 		} catch(Exception $e) {
 			return $this->view('create', [
@@ -57,7 +52,7 @@ class OpsystemController extends Controller
 			]);
 		}
 
-		 Opsystem::query()->insert($post);
+		 Opsystem::query()->insert($validated);
 
 		return redirect(route($this->routes->get('opsystems.index')), 'Successfully created');
 	}
@@ -91,14 +86,10 @@ class OpsystemController extends Controller
 	 */
 	public function update(int $id)
 	{
-		$post = $_POST;
-
 		try {
-			Input::check([
-				'os_name',
-			], $post);
-
-			Input::str($post['os_name']);
+			$validated = $this->validate([
+				'os_name' => ['required', 'string']
+			]);
 
 		} catch(Exception $e) {
 			return $this->view('edit', [
@@ -107,7 +98,7 @@ class OpsystemController extends Controller
 			]);
 		}
 
-		Opsystem::query()->update($id, $post);
+		Opsystem::query()->update($id, $validated);
 
 		return redirect(route($this->routes->get('opsystems.index')), 'Successfully updated');
 	}

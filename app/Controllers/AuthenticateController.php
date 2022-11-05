@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Helpers\Auth;
 use App\Helpers\Input;
 use App\Helpers\RouteCollection;
 use App\Models\User;
@@ -17,36 +18,39 @@ class AuthenticateController extends Controller
 		parent::__construct($routes);
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function index()
 	{
-		if(isset($_SESSION['user_id'])) {
+		if(Auth::check()) {
 			return redirect(route($this->routes->get('home')));
 		}
 
 		return $this->view('login');
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function login()
 	{
-		$post = $_POST;
-
 		try {
-			Input::check([
-				'email',
-				'password',
-			], $post);
+			$validated = $this->validate([
+				'email' => ['required', 'email'],
+				'password' => ['required', 'string'],
+			]);
 
-			Input::email($post['email']);
-			Input::str($post['password']);
-
+			// Get user by email
 			$user = User::query()
-				->authenticate($post['email'], $post['password']);
+				->find('email', $validated['email']);
 
-			if(!$user) {
+			// User by email not found or password does not match
+			if(!$user || !password_verify($validated['password'], $user['password'])) {
 				Input::throwError('Email or password is incorrect');
 			}
 
-			User::setSession($user);
+			$this->setSession($user);
 
 		} catch(Exception $e) {
 			return $this->view('login', [
@@ -57,10 +61,35 @@ class AuthenticateController extends Controller
 		return redirect(route($this->routes->get('home')));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function logout()
 	{
-		User::unsetSession();
+		$this->unsetSession();
 
 		return redirect(route($this->routes->get('home')));
+	}
+
+	/**
+	 * @param array $user
+	 * @return void
+	 */
+	public function setSession(array $user)
+	{
+		$_SESSION['user_id'] = $user['id'];
+		$_SESSION['user_name'] = $user['name'];
+		$_SESSION['user_email'] = $user['email'];
+	}
+
+	/**
+	 * @return void
+	 */
+	public function unsetSession()
+	{
+		unset($_SESSION['user_id']);
+		unset($_SESSION['user_name']);
+		unset($_SESSION['user_name']);
+		session_destroy();
 	}
 }

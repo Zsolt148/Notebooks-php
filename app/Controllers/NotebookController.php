@@ -52,21 +52,15 @@ class NotebookController extends Controller
 	 */
 	public function store()
 	{
-		$post = $_POST;
-
 		try {
-			Input::check([
-				'manufacturer',
-				'type',
-				'display',
-				'memory',
-				'opsystem_id'
-			], $post);
-
-			Input::int($post['memory']);
-			Input::int($post['opsystem_id']);
-
-			//TODO more validation
+			$validated = $this->validate([
+				'manufacturer' => ['required', 'string'],
+				'type' => ['required', 'string'],
+				'display' => ['required', 'string'],
+				'memory' => ['required', 'int'],
+				'opsystem_id' => ['required', 'int'],
+				//TODO more validation
+			]);
 
 		} catch(Exception $e) {
 			return $this->view('create', [
@@ -110,21 +104,15 @@ class NotebookController extends Controller
 	 */
 	public function update(int $id)
 	{
-		$post = $_POST;
-
 		try {
-			Input::check([
-				'manufacturer',
-				'type',
-				'display',
-				'memory',
-				'opsystem_id'
-			], $post);
-
-			Input::int($post['memory']);
-			Input::int($post['opsystem_id']);
-
-			//TODO more validation
+			$validated = $this->validate([
+				'manufacturer' => ['required', 'string'],
+				'type' => ['required', 'string'],
+				'display' => ['required', 'string'],
+				'memory' => ['required', 'int'],
+				'opsystem_id' => ['required', 'int'],
+				//TODO more validation
+			]);
 
 		} catch(Exception $e) {
 			return $this->view('edit', [
@@ -134,7 +122,7 @@ class NotebookController extends Controller
 			]);
 		}
 
-		Notebook::query()->update($id, $post);
+		Notebook::query()->update($id, $validated);
 
 		return redirect(route($this->routes->get('notebooks.index')), 'Successfully updated');
 	}

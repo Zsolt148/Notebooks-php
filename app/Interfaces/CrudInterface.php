@@ -5,9 +5,9 @@ interface CrudInterface
 {
 	public function getAll(): iterable;
 
-	public function find(int $id);
+	public function find($idOrKey, $value = null);
 
-	public function findOrFail(int $id);
+	public function findOrFail($idOrKey, $value = null);
 
 	public function insert(array $data): int;
 

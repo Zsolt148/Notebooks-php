@@ -27,82 +27,112 @@ class Input
 	}
 
 	/**
-	 * @param $val
-	 * @return false|mixed
+	 * @param $field
+	 * @param $value
+	 * @return mixed
 	 * @throws Exception
 	 */
-	public static function int($val)
+	public static function required($field, $value)
 	{
-		$val = filter_var($val, FILTER_VALIDATE_INT);
-		if($val === false) {
-			self::throwError('Invalid Integer', 901);
+		if(empty($value)) {
+			self::throwError(ucfirst($field) . ' is required', 900);
 		}
 
-		return $val;
+		return $value;
 	}
 
 	/**
-	 * @param $val
+	 * @param $field
+	 * @param $value
+	 * @return mixed
+	 */
+	public static function nullable($field, $value)
+	{
+		return $value;
+	}
+
+	/**
+	 * @param $value
+	 * @return false|mixed
+	 * @throws Exception
+	 */
+	public static function int($field, $value)
+	{
+		$value = filter_var($value, FILTER_VALIDATE_INT);
+		if($value === false) {
+			self::throwError(ucfirst($field) . ' must be integer', 901);
+		}
+
+		return trim($value);
+	}
+
+	/**
+	 * @param $value
 	 * @return string
 	 * @throws Exception
 	 */
-	public static function str($val)
+	public static function string($field, $value)
 	{
-		if(!is_string($val)) {
-			self::throwError('Invalid String', 902);
+		if(!is_string($value)) {
+			self::throwError(ucfirst($field) . ' must be string', 902);
 		}
 
-		return trim(htmlspecialchars($val));
+		return trim(htmlspecialchars($value));
 	}
 
 	/**
-	 * @param $val
+	 * @param $value
 	 * @return mixed
 	 */
-	public static function bool($val)
+	public static function bool($field, $value)
 	{
-		return filter_var($val, FILTER_VALIDATE_BOOLEAN);
+		$value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+		if($value === false) {
+			self::throwError(ucfirst($field) . ' must be bool', 903);
+		}
+
+		return $value;
 	}
 
 	/**
-	 * @param $val
+	 * @param $value
 	 * @return false|mixed
 	 * @throws Exception
 	 */
-	public static function email($val)
+	public static function email($field, $value)
 	{
-		$val = filter_var($val, FILTER_VALIDATE_EMAIL);
-		if($val === false) {
-			self::throwError('Invalid Email', 903);
+		$value = filter_var($value, FILTER_VALIDATE_EMAIL);
+		if($value === false) {
+			self::throwError(ucfirst($field) . ' must be a valid email', 904);
 		}
 
-		return $val;
+		return trim($value);
 	}
 
 	/**
-	 * @param $val
+	 * @param $value
 	 * @return false|mixed
 	 * @throws Exception
 	 */
-	public static function url($val)
+	public static function url($field, $value)
 	{
-		$val = filter_var($val, FILTER_VALIDATE_URL);
-		if($val === false) {
-			self::throwError('Invalid URL', 904);
+		$value = filter_var($value, FILTER_VALIDATE_URL);
+		if($value === false) {
+			self::throwError(ucfirst($field) . ' must be a valid URL', 905);
 		}
 
-		return $val;
+		return $value;
 	}
 
 	/**
 	 * @param $fieldname
-	 * @param $val
+	 * @param $value
 	 * @param $minimum
 	 * @return void
 	 */
-	public static function tooshort($fieldname, $val, $minimum)
+	public static function tooshort($fieldname, $value, $minimum)
 	{
-		$length = strlen($val);
+		$length = strlen($value);
 		if($length < $minimum) {
 			// do error handling
 		}
@@ -110,13 +140,13 @@ class Input
 
 	/**
 	 * @param $fieldname
-	 * @param $val
+	 * @param $value
 	 * @param $maximum
 	 * @return void
 	 */
-	public static function toolong($fieldname, $val, $maximum)
+	public static function toolong($fieldname, $value, $maximum)
 	{
-		$length = strlen($val);
+		$length = strlen($value);
 		if($length > $maximum) {
 			// do error handling
 		}
@@ -124,12 +154,12 @@ class Input
 
 	/**
 	 * @param $fieldname
-	 * @param $val
+	 * @param $value
 	 * @return void
 	 */
-	public static function badcontent($fieldname, $val)
+	public static function badcontent($fieldname, $value)
 	{
-		if(!preg_match("/^[a-zA-Z0-9 '-]*$/", $val)) {
+		if(!preg_match("/^[a-zA-Z0-9 '-]*$/", $value)) {
 			// do error handling
 		}
 	}

@@ -8,7 +8,7 @@ use App\Helpers\Route;
  * @return object
  * @throws ReflectionException
  */
-function app($class)
+function app($class) : object
 {
 	return ReflectionResolver::resolve($class);
 }
@@ -46,7 +46,8 @@ function redirect(string $url, string $status = null) : void
  * @param $view
  * @return string
  */
-function view($view = null) {
+function view($view = null) : string
+{
     return APP_ROOT . '/resources/views/' . $view;
 }
 
@@ -56,7 +57,7 @@ function view($view = null) {
  * @param $params
  * @return void
  */
-function dd(...$params)
+function dd(...$params) : void
 {
 	echo"<pre>";
 	foreach($params as $data) {
@@ -70,9 +71,9 @@ function dd(...$params)
 
 /**
  * @param $code
- * @return string
+ * @return void
  */
-function abort($code = 404)
+function abort($code = 404) : void
 {
 	http_response_code($code);
 
@@ -101,7 +102,7 @@ function abort_if($boolean, $code = 404)
  * @param $url
  * @return bool
  */
-function isUrl($url)
+function isUrl($url) : bool
 {
 	return (bool) preg_match("/$url/", parse_url($_SERVER['REQUEST_URI'])['path']);
 }
@@ -112,7 +113,7 @@ function isUrl($url)
  * @param Route $route
  * @return bool
  */
-function isRoute(Route $route)
+function isRoute(Route $route) : bool
 {
 	return $route->getPath() == parse_url($_SERVER['REQUEST_URI'])['path'];
 }
@@ -122,7 +123,8 @@ function isRoute(Route $route)
  * @param array $b
  * @return bool
  */
-function arrays_equals(array $a, array $b) {
+function arrays_equals(array $a, array $b) : bool
+{
 	return (
 		count($a) == count($b) &&
 		array_diff($a, $b) === array_diff($b, $a)

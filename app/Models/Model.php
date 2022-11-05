@@ -31,8 +31,15 @@ abstract class Model implements ModelInterface, CrudInterface
 	protected $table = null;
 
 	/**
-	 * The model construct
+	 * @var int
+	 */
+	protected $fetchMode = PDO::FETCH_ASSOC;
+
+	/**
+	 * The model construct.
 	 *
+	 * Table must be set
+	 * Creates PDO DB
 	 */
 	public function __construct()
 	{
@@ -75,7 +82,7 @@ abstract class Model implements ModelInterface, CrudInterface
 	{
 		return $this->db()
 			->query($query)
-			->{$fetch}(PDO::FETCH_ASSOC);
+			->{$fetch}($this->fetchMode);
 	}
 
 	/**
@@ -93,27 +100,46 @@ abstract class Model implements ModelInterface, CrudInterface
 
 		return $this->db()
 			->query($query)
-			->fetchAll(PDO::FETCH_ASSOC);
+			->fetchAll($this->fetchMode);
 	}
 
 	/**
-	 * @param int $id
+	 * Find record by id or key-value pair
+	 *
+	 * @param $idOrKey // id or key
+	 * @param null $value
 	 * @return mixed
 	 */
-	public function find(int $id)
+	public function find($idOrKey, $value = null)
 	{
+		$key = 'id';
+
+		// Only int is given then find by id
+		if(is_int($idOrKey) && !$value) {
+			$value = $idOrKey;
+		}
+
+		// String and value is given
+		if(is_string($idOrKey) && $value) {
+			$key = $idOrKey;
+		}
+
 		return $this->db()
-			->query("SELECT * FROM {$this->table} WHERE id = $id")
-			->fetch(PDO::FETCH_ASSOC);
+			->query("SELECT * FROM {$this->table} WHERE $key = '$value'")
+			->fetch($this->fetchMode);
 	}
 
 	/**
-	 * @param int $id
+	 * Find record by id or key-value pair
+	 * Aborts (404) when the record is not found
+	 *
+	 * @param $idOrKey // id or key
+	 * @param null $value
 	 * @return mixed
 	 */
-	public function findOrFail(int $id)
+	public function findOrFail($idOrKey, $value = null)
 	{
-		$data = $this->find($id);
+		$data = $this->find($idOrKey, $value);
 
 		abort_if(!$data);
 
@@ -129,7 +155,6 @@ abstract class Model implements ModelInterface, CrudInterface
 	 */
 	public function insert(array $data): int
 	{
-
 		// Question marks
 		$marks = array_fill(0, count($data), '?');
 		// Fields to be added.
@@ -162,7 +187,6 @@ abstract class Model implements ModelInterface, CrudInterface
 	 */
 	public function update(int $id, array $data): int
 	{
-
 		$this->findOrFail($id);
 
 		// Fields to be added.
@@ -179,7 +203,7 @@ abstract class Model implements ModelInterface, CrudInterface
 		$stmt = $this->db()
 			->prepare("
 				UPDATE {$this->table} SET " . implode(", ", $set) . "
-				WHERE id = $id;
+				WHERE id = '$id'
 			");
 
 		// Execute statement with values
@@ -201,7 +225,7 @@ abstract class Model implements ModelInterface, CrudInterface
 		$stmt = $this->db()
 			->prepare("
 				DELETE FROM {$this->table}
-				WHERE id = $id;
+				WHERE id = '$id'
 			");
 
 		// Execute statement
@@ -229,7 +253,9 @@ abstract class Model implements ModelInterface, CrudInterface
 	{
 		if(!arrays_equals($this->fillable, $fields)) {
 			throw new Exception(
-				"Fillable model fields are not same as create/update SQL fields. (Fillable fields: " . implode(', ', $this->fillable) . ")."
+				"Fillable model fields are not same as create/update SQL fields.
+				Trying to fill: " . implode(', ', $fields) . "
+				(Fillable fields: " . implode(', ', $this->fillable) . ")."
 			);
 		}
 	}
