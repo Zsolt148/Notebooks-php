@@ -1,5 +1,5 @@
 <?php
-include("resources/views/layouts/header.php");
+include("../resources/views/layouts/header.php");
 ?>
     <section class="w-full px-6 pb-12 antialiased bg-white">
         <div class="px-10 mx-auto max-w-7xl">
@@ -63,5 +63,5 @@ include("resources/views/layouts/header.php");
     <section>
 
 <?php
-include("resources/views/layouts/footer.php");
+include("../resources/views/layouts/footer.php");
 ?>

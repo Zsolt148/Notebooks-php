@@ -1,5 +1,5 @@
 <?php
-include("resources/views/layouts/header.php");
+include("../resources/views/layouts/header.php");
 ?>
 <section class="w-full px-8 py-16 antialiased">
 	<div class="max-w-7xl mx-auto">
@@ -25,5 +25,5 @@ include("resources/views/layouts/header.php");
 	</div>
 </section>
 <?php
-include("resources/views/layouts/footer.php");
+include("../resources/views/layouts/footer.php");
 ?>

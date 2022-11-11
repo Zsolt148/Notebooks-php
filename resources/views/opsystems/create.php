@@ -1,11 +1,11 @@
 <?php
-include("resources/views/layouts/header.php");
+include("../resources/views/layouts/header.php");
 ?>
 <section class="w-full px-6 pb-12 antialiased bg-white">
     <div class="px-10 py-24 mx-auto max-w-7xl">
         <h1 class="text-2xl font-semibold text-gray-700 mb-8">Create opsystem</h1>
 
-		<?php include_once 'resources/views/shared/errors.php' ?>
+		<?php include_once '../resources/views/shared/errors.php' ?>
 
         <form method="POST" action="<?php echo route($routes->get('opsystems.store')); ?>" enctype=”multipart/form-data”>
 
@@ -20,5 +20,5 @@ include("resources/views/layouts/header.php");
     </div>
 </section>
 <?php
-include("resources/views/layouts/footer.php");
+include("../resources/views/layouts/footer.php");
 ?>

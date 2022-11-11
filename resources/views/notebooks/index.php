@@ -1,5 +1,5 @@
 <?php
-include("resources/views/layouts/header.php");
+include("../resources/views/layouts/header.php");
 ?>
     <section class="w-full px-6 pb-12 antialiased bg-white">
     <div class="px-10 mx-auto max-w-7xl">
@@ -7,8 +7,8 @@ include("resources/views/layouts/header.php");
             Notebooks - <a class="link" href="<?php echo route($routes->get('notebooks.create')); ?>">Add new</a>
         </h1>
 
-		<?php include_once 'resources/views/shared/status.php' ?>
-		<?php include_once 'resources/views/shared/errors.php' ?>
+		<?php include_once '../resources/views/shared/status.php' ?>
+		<?php include_once '../resources/views/shared/errors.php' ?>
 
         <div class="overflow-x-scroll">
             <table>
@@ -82,5 +82,5 @@ include("resources/views/layouts/header.php");
     <section>
 
 <?php
-include("resources/views/layouts/footer.php");
+include("../resources/views/layouts/footer.php");
 ?>
