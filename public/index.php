@@ -14,5 +14,4 @@ require_once __DIR__ . '/../routes/web.php';
 // Start session
 session_start();
 
-$router = new Router();
-$router($routes);
+Router::invoke($routes);

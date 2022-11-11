@@ -50,7 +50,7 @@ class AuthenticateController extends Controller
 				Input::throwError('Email or password is incorrect');
 			}
 
-			$this->setSession($user);
+			Auth::setSession($user);
 
 		} catch(Exception $e) {
 			return $this->view('login', [
@@ -66,30 +66,8 @@ class AuthenticateController extends Controller
 	 */
 	public function logout()
 	{
-		$this->unsetSession();
+		Auth::unsetSession();
 
 		return redirect(route($this->routes->get('home')));
-	}
-
-	/**
-	 * @param array $user
-	 * @return void
-	 */
-	public function setSession(array $user)
-	{
-		$_SESSION['user_id'] = $user['id'];
-		$_SESSION['user_name'] = $user['name'];
-		$_SESSION['user_email'] = $user['email'];
-	}
-
-	/**
-	 * @return void
-	 */
-	public function unsetSession()
-	{
-		unset($_SESSION['user_id']);
-		unset($_SESSION['user_name']);
-		unset($_SESSION['user_name']);
-		session_destroy();
 	}
 }

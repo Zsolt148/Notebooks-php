@@ -37,4 +37,26 @@ class Auth
 
 		return null;
 	}
+
+	/**
+	 * @param array $user
+	 * @return void
+	 */
+	public static function setSession(array $user) : void
+	{
+		$_SESSION['user_id'] = $user['id'];
+		$_SESSION['user_name'] = $user['name'];
+		$_SESSION['user_email'] = $user['email'];
+	}
+
+	/**
+	 * @return void
+	 */
+	public static function unsetSession() : void
+	{
+		unset($_SESSION['user_id']);
+		unset($_SESSION['user_name']);
+		unset($_SESSION['user_name']);
+		session_destroy();
+	}
 }

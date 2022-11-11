@@ -6,9 +6,10 @@ class Router
 {
 	/**
 	 * @param RouteCollection $routes
-	 * @return mixed|void
+	 * @return void
+	 * @throws \Exception
 	 */
-	public function __invoke(RouteCollection $routes)
+	public static function invoke(RouteCollection $routes)
 	{
 		$method = $_SERVER['REQUEST_METHOD'];
 		$uri = parse_url($_SERVER['REQUEST_URI'])['path'];

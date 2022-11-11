@@ -41,7 +41,7 @@
                                 <span class="w-full, px-3 py-2 mr-0 text-gray-700">
                                     Hi <?php echo \App\Helpers\Auth::user()->name ?>!
                                 </span>
-                                    <a href="<?php echo route($routes->get('logout')) ?>" class="w-full px-3 py-2 mr-0 text-gray-700 md:mr-2 lg:mr-3 md:w-auto link">Logout</a>
+                                <a href="<?php echo route($routes->get('logout')) ?>" class="w-full px-3 py-2 mr-0 text-gray-700 md:mr-2 lg:mr-3 md:w-auto link">Logout</a>
                             <?php endif; ?>
                         </div>
                     </div>
