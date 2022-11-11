@@ -22,6 +22,11 @@ if (isset($_SERVER['DOCUMENT_ROOT'])) {
 		$documentRoot = preg_replace('/([^\\/]{1})\\([^\\/]{1})/', '\\1DIR_SEP\\2', $documentRoot);
 		$documentRoot = str_replace('DIR_SEP', '\\\\', $documentRoot);
 	}
+
+	// For windows
+	if(str_contains($documentRoot, '\\public')) {
+		$documentRoot = str_replace('\\public', '', $documentRoot);
+	}
 }
 dd($documentRoot);
 
