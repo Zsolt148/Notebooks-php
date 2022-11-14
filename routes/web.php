@@ -2,9 +2,10 @@
 
 use App\Controllers\HomeController;
 use App\Controllers\AuthenticateController;
-use App\Controllers\MNBController;
 use App\Controllers\NotebookController;
 use App\Controllers\OpsystemController;
+use App\Controllers\ProcessorController;
+use App\Controllers\MNBController;
 use App\Controllers\RegisterController;
 use App\Helpers\Route;
 use App\Helpers\RouteCollection;
@@ -35,5 +36,13 @@ $routes->add('opsystems.show', Route::get('/opsystems/{id}', [OpsystemController
 $routes->add('opsystems.edit', Route::get('/opsystems/{id}/edit', [OpsystemController::class, 'edit']));
 $routes->add('opsystems.update', Route::post('/opsystems/{id}/update', [OpsystemController::class, 'update']));
 $routes->add('opsystems.delete', Route::get('/opsystems/{id}/delete', [OpsystemController::class, 'delete']));
+
+$routes->add('processors.index', Route::get('/processors', [ProcessorController::class, 'index']));
+$routes->add('processors.create', Route::get('/processors/create', [ProcessorController::class, 'create']));
+$routes->add('processors.store', Route::post('/processors/store', [ProcessorController::class, 'store']));
+$routes->add('processors.show', Route::get('/processors/{id}', [ProcessorController::class, 'show']));
+$routes->add('processors.edit', Route::get('/processors/{id}/edit', [ProcessorController::class, 'edit']));
+$routes->add('processors.update', Route::post('/processors/{id}/update', [ProcessorController::class, 'update']));
+$routes->add('processors.delete', Route::get('/processors/{id}/delete', [ProcessorController::class, 'delete']));
 
 $routes->add('mnb', Route::get('/mnb', [MNBController::class, 'index']));

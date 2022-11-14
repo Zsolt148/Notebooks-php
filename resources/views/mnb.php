@@ -8,7 +8,7 @@ include("../resources/views/layouts/header.php");
             </h1>
 
             <div class="container_data">
-	            <h2>Search for exchangees:</h2>
+	            <h2>Search for exchanges:</h2>
 
                 <div class="wrapper_data">
                     <form action="<?php echo URLROOT; ?>/mnb/GetExchangeRates" method ="POST">

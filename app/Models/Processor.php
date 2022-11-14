@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-class Opsystem extends Model
+class Processor extends Model
 {
-	protected $table = "opsystems";
+	protected $table = "processors";
 
 	protected $fillable = [
-		'os_name'
+        'manufacturer',
+		'type'
 	];
 
 	/**

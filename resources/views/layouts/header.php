@@ -25,6 +25,8 @@
                             <a href="<?php echo route($routes->get('home')) ?>" class="<?php echo isRoute($routes->get('home')) ? 'nav-link-active' : 'nav-link'; ?>">Home</a>
                             <a href="<?php echo route($routes->get('notebooks.index')) ?>" class="<?php echo isUrl('notebooks*') ? 'nav-link-active' : 'nav-link'; ?>">Notebooks</a>
                             <a href="<?php echo route($routes->get('opsystems.index')) ?>" class="<?php echo isUrl('opsystems*') ? 'nav-link-active' : 'nav-link'; ?>">OP systems</a>
+                            <a href="<?php echo route($routes->get('processors.index')) ?>" class="<?php echo isUrl('processors*') ? 'nav-link-active' : 'nav-link'; ?>">Processors</a>
+                            <a href="<?php echo route($routes->get('mnb')) ?>" class="<?php echo isRoute($routes->get('mnb')) ? 'nav-link-active' : 'nav-link'; ?>">MNB</a>
                             <a href="#_" class="inline-block w-full py-2 mx-0 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Blog</a>
                             <a href="#_" class="inline-block w-full py-2 mx-0 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Contact</a>
                             <a href="#_" class="absolute top-0 left-0 hidden py-2 mt-6 ml-10 mr-2 text-gray-600 lg:inline-block md:mt-0 md:ml-2 lg:mx-3 md:relative">
