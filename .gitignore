@@ -2,5 +2,5 @@
 /vendor
 /config/config.php
 /node_modules
-/public/css
+#/public/css
 /public/js
