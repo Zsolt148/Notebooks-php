@@ -27,6 +27,10 @@ class RegisterController extends Controller
 
 	public function register()
 	{
+		if(Auth::check()) {
+			return redirect(route($this->routes->get('home')));
+		}
+
 		try {
 			$validated = $this->validate([
 				'name' => ['required', 'string'],

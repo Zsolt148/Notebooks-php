@@ -4,7 +4,10 @@ include("../resources/views/layouts/header.php");
     <section class="w-full px-6 pb-12 antialiased bg-white">
     <div class="px-10 mx-auto max-w-7xl">
         <h1 class="text-2xl font-semibold text-gray-700 mb-8">
-            Processors - <a class="link" href="<?php echo route($routes->get('processors.create')); ?>">Add new</a>
+            Processors
+            <?php if(auth()->check()) : ?>
+                - <a class="button" href="<?php echo route($routes->get('processors.create')); ?>">Add new</a>
+			<?php endif; ?>
         </h1>
 
 		<?php include_once '../resources/views/shared/status.php' ?>

@@ -6,6 +6,7 @@ use App\Helpers\Input;
 use App\Helpers\RouteCollection;
 use App\Models\Notebook;
 use App\Models\Opsystem;
+use App\Models\Processor;
 use Exception;
 
 class NotebookController extends Controller
@@ -28,8 +29,11 @@ class NotebookController extends Controller
 		// Fetch all notebooks
 		$notebooks = Notebook::query()
 			->raw("
-				SELECT notebooks.*, opsystems.id AS op_id, opsystems.os_name FROM notebooks 
-				INNER JOIN opsystems ON notebooks.opsystem_id=opsystems.id ORDER BY notebooks.id
+				SELECT notebooks.*, opsystems.id AS op_id, opsystems.os_name, processors.id AS proc_id, processors.manufacturer AS proc_manufacturer, processors.type AS proc_type 
+				FROM notebooks 
+				INNER JOIN opsystems ON notebooks.opsystem_id=opsystems.id
+				INNER JOIN processors ON notebooks.processor_id=processors.id
+			    ORDER BY notebooks.id
 			");
 
         return $this->view('index', [
@@ -42,8 +46,11 @@ class NotebookController extends Controller
 	 */
 	public function create()
 	{
+		abort_if(!auth()->check());
+
 		return $this->view('create', [
-			'opsystems' => Opsystem::query()->getAll()
+			'opsystems' => Opsystem::query()->getAll(),
+			'processors' => Processor::query()->getAll()
 		]);
 	}
 
@@ -52,24 +59,20 @@ class NotebookController extends Controller
 	 */
 	public function store()
 	{
+		abort_if(!auth()->check());
+
 		try {
-			$validated = $this->validate([
-				'manufacturer' => ['required', 'string'],
-				'type' => ['required', 'string'],
-				'display' => ['required', 'string'],
-				'memory' => ['required', 'int'],
-				'opsystem_id' => ['required', 'int'],
-				//TODO more validation
-			]);
+			$validated = $this->validate($this->rules());
 
 		} catch(Exception $e) {
 			return $this->view('create', [
 				'errors' => $e->getMessage(),
-				'opsystems' => Opsystem::query()->getAll()
+				'opsystems' => Opsystem::query()->getAll(),
+				'processors' => Processor::query()->getAll()
 			]);
 		}
 
-		// Notebook::query()->insert($post); TODO add more fields to work
+		 Notebook::query()->insert($validated);
 
 		return redirect(route($this->routes->get('notebooks.index')), 'Successfully created');
 	}
@@ -92,9 +95,12 @@ class NotebookController extends Controller
 	 */
 	public function edit(int $id)
 	{
+		abort_if(!auth()->check());
+
 		return $this->view('edit', [
 			'notebook' => Notebook::query()->findOrFail($id),
 			'opsystems' => Opsystem::query()->getAll(),
+			'processors' => Processor::query()->getAll()
 		]);
 	}
 
@@ -104,20 +110,16 @@ class NotebookController extends Controller
 	 */
 	public function update(int $id)
 	{
+		abort_if(!auth()->check());
+
 		try {
-			$validated = $this->validate([
-				'manufacturer' => ['required', 'string'],
-				'type' => ['required', 'string'],
-				'display' => ['required', 'string'],
-				'memory' => ['required', 'int'],
-				'opsystem_id' => ['required', 'int'],
-				//TODO more validation
-			]);
+			$validated = $this->validate($this->rules());
 
 		} catch(Exception $e) {
 			return $this->view('edit', [
 				'notebook' => Notebook::query()->findOrFail($id),
 				'opsystems' => Opsystem::query()->getAll(),
+				'processors' => Processor::query()->getAll(),
 				'errors' => $e->getMessage()
 			]);
 		}
@@ -133,10 +135,31 @@ class NotebookController extends Controller
 	 */
 	public function delete(int $id)
 	{
+		abort_if(!auth()->check());
+
 		$notebook = Notebook::query()->delete($id);
 
 		if($notebook) {
 			return redirect(route($this->routes->get('notebooks.index')), 'Successfully deleted');
 		}
+	}
+
+	/**
+	 * @return array
+	 */
+	private function rules() : array
+	{
+		return [
+			'manufacturer' => ['required', 'string'],
+			'type' => ['required', 'string'],
+			'display' => ['required', 'float'],
+			'memory' => ['required', 'int'],
+			'harddisk' => ['required', 'int'],
+			'videocontroller' => ['required', 'string'],
+			'price' => ['required', 'int'],
+			'processor_id' => ['required', 'int'],
+			'opsystem_id' => ['required', 'int'],
+			'pieces' => ['nullable', 'int'],
+		];
 	}
 }

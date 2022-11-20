@@ -4,7 +4,10 @@ include("../resources/views/layouts/header.php");
     <section class="w-full px-6 pb-12 antialiased bg-white">
     <div class="px-10 mx-auto max-w-7xl">
         <h1 class="text-2xl font-semibold text-gray-700 mb-8">
-            Notebooks - <a class="link" href="<?php echo route($routes->get('notebooks.create')); ?>">Add new</a>
+            Notebooks
+            <?php if(auth()->check()) : ?>
+                - <a class="button" href="<?php echo route($routes->get('notebooks.create')); ?>">Add new</a>
+            <?php endif; ?>
         </h1>
 
 		<?php include_once '../resources/views/shared/status.php' ?>
@@ -21,7 +24,7 @@ include("../resources/views/layouts/header.php");
                     <th class="th-class"><span class="th-content">harddisk</span></th>
                     <th class="th-class"><span class="th-content">videocontroller</span></th>
                     <th class="th-class"><span class="th-content">price</span></th>
-                    <th class="th-class"><span class="th-content">processor_id</span></th>
+                    <th class="th-class"><span class="th-content">Processor</span></th>
                     <th class="th-class"><span class="th-content">OS name</span></th>
                     <th class="th-class" colspan="3"><span class="th-content">Admin</span></th>
                 </tr>
@@ -53,7 +56,7 @@ include("../resources/views/layouts/header.php");
                             <span class="td-content"><?php echo $n['price']; ?></span>
                         </td>
                         <td class="td-class">
-                            <span class="td-content"><?php echo $n['processor_id']; ?></span>
+                            <span class="td-content"><?php echo $n['proc_manufacturer'] . ' ' . $n['proc_type']; ?></span>
                         </td>
                         <td class="td-class">
                             <span class="td-content"><?php echo $n['os_name']; ?></span>
@@ -63,16 +66,18 @@ include("../resources/views/layouts/header.php");
                                 View
                             </a>
                         </td>
-                        <td class="td-class">
-                            <a class="td-content link" href="<?php echo route($routes->get('notebooks.edit'), $n['id']); ?>">
-                                Edit
-                            </a>
-                        </td>
-                        <td class="td-class">
-                            <a class="td-content link" href="<?php echo route($routes->get('notebooks.delete'), $n['id']); ?>">
-                                Delete
-                            </a>
-                        </td>
+                        <?php if(auth()->check()) : ?>
+                            <td class="td-class">
+                                <a class="td-content link" href="<?php echo route($routes->get('notebooks.edit'), $n['id']); ?>">
+                                    Edit
+                                </a>
+                            </td>
+                            <td class="td-class">
+                                <a class="td-content link" href="<?php echo route($routes->get('notebooks.delete'), $n['id']); ?>">
+                                    Delete
+                                </a>
+                            </td>
+                        <?php endif; ?>
                     </tr>
                 <?php } ?>
                 </tbody>

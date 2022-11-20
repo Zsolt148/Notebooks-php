@@ -48,7 +48,10 @@ abstract class Controller
 			if(is_string($rule)) {
 				$valid = Input::{$rule}($field, $post[$field]);
 				$validated[$field] = $valid;
-			}elseif(is_array($rule)) { // array of rules is given
+				continue;
+			}
+
+			if(is_array($rule)) { // array of rules is given
 				foreach($rule as $r) {
 					$valid = Input::{$r}($field, $post[$field]);
 					$validated[$field] = $valid; // overwrites key

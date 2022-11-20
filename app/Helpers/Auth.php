@@ -7,6 +7,14 @@ use App\Models\User;
 class Auth
 {
 	/**
+	 * @return static
+	 */
+	public static function make() : static
+	{
+		return (new static);
+	}
+
+	/**
 	 * @return bool
 	 */
 	public static function check()

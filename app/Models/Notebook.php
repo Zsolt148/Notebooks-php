@@ -20,7 +20,12 @@ class Notebook extends Model
 		'type',
 		'display',
 		'memory',
-		'opsystem_id'
+		'harddisk',
+		'videocontroller',
+		'price',
+		'processor_id',
+		'opsystem_id',
+		'pieces'
 	];
 
 	/**

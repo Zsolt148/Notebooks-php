@@ -68,6 +68,21 @@ class Input
 
 	/**
 	 * @param $value
+	 * @return false|mixed
+	 * @throws Exception
+	 */
+	public static function float($field, $value)
+	{
+		$value = filter_var($value, FILTER_VALIDATE_FLOAT);
+		if($value === false) {
+			self::throwError(ucfirst($field) . ' must be a float', 901);
+		}
+
+		return trim($value);
+	}
+
+	/**
+	 * @param $value
 	 * @return string
 	 * @throws Exception
 	 */

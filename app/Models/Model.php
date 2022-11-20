@@ -229,9 +229,7 @@ abstract class Model implements ModelInterface, CrudInterface
 			");
 
 		// Execute statement
-		$stmt->execute();
-
-		return true;
+		return $stmt->execute();
 	}
 
 	/**

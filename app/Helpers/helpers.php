@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\Auth;
 use App\Helpers\ReflectionResolver;
 use App\Helpers\Route;
 
@@ -11,6 +12,14 @@ use App\Helpers\Route;
 function app($class) : object
 {
 	return ReflectionResolver::resolve($class);
+}
+
+/**
+ * @return Auth
+ */
+function auth() : Auth
+{
+	return app(Auth::class);
 }
 
 /**

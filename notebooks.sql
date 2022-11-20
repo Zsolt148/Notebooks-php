@@ -4,22 +4,95 @@ CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 USE `notebooks`;
 
-CREATE TABLE IF NOT EXISTS `gep` (
-  `gepid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `gyarto` varchar(15) COLLATE utf8_hungarian_ci NOT NULL,
-  `tipus` varchar(30) COLLATE utf8_hungarian_ci NOT NULL,
-  `kijelzo` decimal(8,1) NOT NULL,
-  `memoria` int(10) NOT NULL,
-  `merevlemez` int(10) NOT NULL,
-  `videovezerlo` varchar(30) COLLATE utf8_hungarian_ci NOT NULL,
-  `ar` int(10) NOT NULL,
-  `processzorid` int(10) NOT NULL,
-  `oprendszerid` int(10) NOT NULL,
-  `db` int(10) NOT NULL,
-  PRIMARY KEY (`gepid`)
+CREATE TABLE IF NOT EXISTS `opsystems` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`os_name` varchar(255) COLLATE utf8_hungarian_ci NOT NULL,
+PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
-INSERT INTO `gep` (`gepid`, `gyarto`, `tipus`, `kijelzo`, `memoria`, `merevlemez`, `videovezerlo`, `ar`, `processzorid`, `oprendszerid`, `db`) VALUES
+INSERT INTO `opsystems` (`id`, `os_name`) VALUES
+('1', 'FreeDOS'),
+('2', 'Linux'),
+('3', 'Microsoft Vista Business'),
+('4', 'Microsoft Vista Home Basic HU'),
+('5', 'Microsoft Vista Home Premium'),
+('6', 'Microsoft Vista Home Premium HU'),
+('7', 'Microsoft Vista Home Premium HU notebook'),
+('8', 'nincs'),
+('9', 'Windows 7 Home Premium HU 32Bit'),
+('10', 'Windows 7 Home Premium HU 64Bit'),
+('11', 'Windows 7 Starter Edition HU'),
+('12', 'Windows XP Home Magyar');
+
+CREATE TABLE IF NOT EXISTS `processors` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`manufacturer` varchar(255) COLLATE utf8_hungarian_ci NOT NULL,
+`type` varchar(255) COLLATE utf8_hungarian_ci NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+INSERT INTO `processors` (`id`, `manufacturer`, `type`) VALUES
+('1', 'AMD', 'Athlon 64 X2 QL64'),
+('4', 'AMD', 'Athlon TM Neo MV-40'),
+('5', 'AMD', 'Mobil Sempron SI-40'),
+('6', 'AMD', 'Turion64 X2 TL60'),
+('7', 'AMD', 'Turion64 X2 TL64'),
+('8', 'AMD', 'Turion64 X2 TL62'),
+('10', 'Intel', 'Celeron 900'),
+('12', 'Intel', 'Celeron Dual-Core T1600'),
+('13', 'Intel', 'Celeron Dual-Core T1700'),
+('14', 'Intel', 'Celeron Dual-Core T3000'),
+('17', 'Intel', 'Celeron M 560'),
+('18', 'Intel', 'Centrino Atom 1600'),
+('19', 'Intel', 'Centrino Atom N270'),
+('20', 'Intel', 'Centrino Atom N280'),
+('21', 'Intel', 'Centrino Atom Z520'),
+('22', 'Intel', 'Centrino Atom Z530'),
+('23', 'Intel', 'Core Duo T3400 '),
+('24', 'Intel', 'Core2 Duo P7350'),
+('25', 'Intel', 'Core2 Duo P8400'),
+('26', 'Intel', 'Core2 Duo P8600'),
+('27', 'Intel', 'Core2 Duo P8700'),
+('28', 'Intel', 'Core2 Duo SL9400'),
+('29', 'Intel', 'Core2 Duo SU7300'),
+('30', 'Intel', 'Core2 Duo SU9300'),
+('31', 'Intel', 'Core2 Duo SU9400'),
+('32', 'Intel', 'Core2 Duo T5670'),
+('34', 'Intel', 'Core2 Duo T5870'),
+('35', 'Intel', 'Core2 Duo T6400'),
+('36', 'Intel', 'Core2 Duo T6500'),
+('37', 'Intel', 'Core2 Duo T6570'),
+('38', 'Intel', 'Core2 Duo T6600'),
+('39', 'Intel', 'Core2 Duo T6670'),
+('40', 'Intel', 'Core2 Duo T7300'),
+('41', 'Intel', 'Core2 Duo T7500'),
+('42', 'Intel', 'Core2 Duo T8300'),
+('43', 'Intel', 'Core2 Duo T9300'),
+('44', 'Intel', 'Core2 Duo T9400'),
+('45', 'Intel', 'Core2 Solo SU3500 ULV'),
+('46', 'Intel', 'Pentium Dual Core SU4100'),
+('48', 'Intel', 'Pentium dual-core T4200'),
+('49', 'Intel', 'Pentium dual-core T4300'),
+('51', 'Intel', 'Celeron M ULV723'),
+('52', 'VIA', 'Via Nano ULV 2250'),
+('53', 'AMD', 'Athlon 64 X2 QL65');
+
+CREATE TABLE IF NOT EXISTS `notebooks` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `manufacturer` varchar(255) COLLATE utf8_hungarian_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8_hungarian_ci NOT NULL,
+  `display` decimal(8,1) NOT NULL,
+  `memory` int(10) NOT NULL,
+  `harddisk` int(10) NOT NULL,
+  `videocontroller` varchar(255) COLLATE utf8_hungarian_ci NOT NULL,
+  `price` int(10) NOT NULL,
+  `processor_id` int(10) NOT NULL,
+  `opsystem_id` int(10) NOT NULL,
+  `pieces` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+INSERT INTO `notebooks` (`id`, `manufacturer`, `type`, `display`, `memory`, `harddisk`, `videocontroller`, `price`, `processor_id`, `opsystem_id`, `pieces`) VALUES
 (1, 'HP', 'COMPAQ 615 NX556EA', 15.6, 1024, 160, 'ATi Mobility Radeon HD3200 256MB', 95120, 1, 1, 0),
 (2, 'ASUS', 'K51AC-SX001D', 15.6, 2048, 250, 'ATi Mobility Radeon HD3200 256MB', 101200, 1, 8, 0),
 (3, 'HP', 'COMPAQ 615 NX560EA', 15.6, 2048, 320, 'ATi Mobility Radeon HD3200 256MB', 114800, 1, 4, 0),
@@ -267,84 +340,13 @@ INSERT INTO `gep` (`gepid`, `gyarto`, `tipus`, `kijelzo`, `memoria`, `merevlemez
 (245, 'ASUS', 'K51AC-SX037D', 15.6, 2048, 250, 'ATi Mobility Radeon HD3200 256MB', 98320, 53, 8, 1),
 (246, 'ASUS', 'K50AB-SX073D', 15.6, 3072, 250, 'ATi Mobility Radeon HD4570 512MB', 107120, 53, 8, 5);
 
-CREATE TABLE IF NOT EXISTS `oprendszer` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nev` varchar(15) COLLATE utf8_hungarian_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_hungarian_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_hungarian_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_hungarian_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
-INSERT INTO `oprendszer` (`id`, `nev`) VALUES
-('1', 'FreeDOS'),
-('2', 'Linux'),
-('3', 'Microsoft Vista Business'),
-('4', 'Microsoft Vista Home Basic HU'),
-('5', 'Microsoft Vista Home Premium'),
-('6', 'Microsoft Vista Home Premium HU'),
-('7', 'Microsoft Vista Home Premium HU notebook'),
-('8', 'nincs'),
-('9', 'Windows 7 Home Premium HU 32Bit'),
-('10', 'Windows 7 Home Premium HU 64Bit'),
-('11', 'Windows 7 Starter Edition HU'),
-('12', 'Windows XP Home Magyar');
-
-CREATE TABLE IF NOT EXISTS `processzor` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `gyarto` varchar(15) COLLATE utf8_hungarian_ci NOT NULL,
-  `tipus` varchar(30) COLLATE utf8_hungarian_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
-
-INSERT INTO `processzor` (`id`, `gyarto`, `tipus`) VALUES
-('1', 'AMD', 'Athlon 64 X2 QL64'),
-('4', 'AMD', 'Athlon TM Neo MV-40'),
-('5', 'AMD', 'Mobil Sempron SI-40'),
-('6', 'AMD', 'Turion64 X2 TL60'),
-('7', 'AMD', 'Turion64 X2 TL64'),
-('8', 'AMD', 'Turion64 X2 TL62'),
-('10', 'Intel', 'Celeron 900'),
-('12', 'Intel', 'Celeron Dual-Core T1600'),
-('13', 'Intel', 'Celeron Dual-Core T1700'),
-('14', 'Intel', 'Celeron Dual-Core T3000'),
-('17', 'Intel', 'Celeron M 560'),
-('18', 'Intel', 'Centrino Atom 1600'),
-('19', 'Intel', 'Centrino Atom N270'),
-('20', 'Intel', 'Centrino Atom N280'),
-('21', 'Intel', 'Centrino Atom Z520'),
-('22', 'Intel', 'Centrino Atom Z530'),
-('23', 'Intel', 'Core Duo T3400 '),
-('24', 'Intel', 'Core2 Duo P7350'),
-('25', 'Intel', 'Core2 Duo P8400'),
-('26', 'Intel', 'Core2 Duo P8600'),
-('27', 'Intel', 'Core2 Duo P8700'),
-('28', 'Intel', 'Core2 Duo SL9400'),
-('29', 'Intel', 'Core2 Duo SU7300'),
-('30', 'Intel', 'Core2 Duo SU9300'),
-('31', 'Intel', 'Core2 Duo SU9400'),
-('32', 'Intel', 'Core2 Duo T5670'),
-('34', 'Intel', 'Core2 Duo T5870'),
-('35', 'Intel', 'Core2 Duo T6400'),
-('36', 'Intel', 'Core2 Duo T6500'),
-('37', 'Intel', 'Core2 Duo T6570'),
-('38', 'Intel', 'Core2 Duo T6600'),
-('39', 'Intel', 'Core2 Duo T6670'),
-('40', 'Intel', 'Core2 Duo T7300'),
-('41', 'Intel', 'Core2 Duo T7500'),
-('42', 'Intel', 'Core2 Duo T8300'),
-('43', 'Intel', 'Core2 Duo T9300'),
-('44', 'Intel', 'Core2 Duo T9400'),
-('45', 'Intel', 'Core2 Solo SU3500 ULV'),
-('46', 'Intel', 'Pentium Dual Core SU4100'),
-('48', 'Intel', 'Pentium dual-core T4200'),
-('49', 'Intel', 'Pentium dual-core T4300'),
-('51', 'Intel', 'Celeron M ULV723'),
-('52', 'VIA', 'Via Nano ULV 2250'),
-('53', 'AMD', 'Athlon 64 X2 QL65');
-
-CREATE TABLE IF NOT EXISTS `felhasznalok` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `csaladnev` varchar(30) COLLATE utf8_hungarian_ci NOT NULL,
-  `keresztnev` varchar(30) COLLATE utf8_hungarian_ci NOT NULL,
-  `felhasznalonev` varchar(30) COLLATE utf8_hungarian_ci NOT NULL,
-  `jelszo` varchar(30) COLLATE utf8_hungarian_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
+('1', 'Admin', 'admin@admin.com', '$2y$10$7VpBgrSgogoMtUmiEq.DYuJ3siaJKXW20CKfKsnVfjlRyO2hyAnce');

@@ -15,7 +15,7 @@ include("../resources/views/layouts/header.php");
                 <div class="py-2 mr-5">
                     <a class="text-red-600 link" href="<?php echo route($routes->get('opsystems.delete'), $opsystem['id']); ?>">Delete</a>
                 </div>
-                <button type="submit" class="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+                <button type="submit" class="button">
                     Save
                 </button>
             </div>

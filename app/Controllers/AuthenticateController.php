@@ -35,6 +35,10 @@ class AuthenticateController extends Controller
 	 */
 	public function login()
 	{
+		if(Auth::check()) {
+			return redirect(route($this->routes->get('home')));
+		}
+
 		try {
 			$validated = $this->validate([
 				'email' => ['required', 'email'],

@@ -27,23 +27,16 @@
                             <a href="<?php echo route($routes->get('opsystems.index')) ?>" class="<?php echo isUrl('opsystems*') ? 'nav-link-active' : 'nav-link'; ?>">OP systems</a>
                             <a href="<?php echo route($routes->get('processors.index')) ?>" class="<?php echo isUrl('processors*') ? 'nav-link-active' : 'nav-link'; ?>">Processors</a>
                             <a href="<?php echo route($routes->get('mnb')) ?>" class="<?php echo isRoute($routes->get('mnb')) ? 'nav-link-active' : 'nav-link'; ?>">MNB</a>
-                            <a href="#_" class="inline-block w-full py-2 mx-0 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Blog</a>
-                            <a href="#_" class="inline-block w-full py-2 mx-0 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Contact</a>
-                            <a href="#_" class="absolute top-0 left-0 hidden py-2 mt-6 ml-10 mr-2 text-gray-600 lg:inline-block md:mt-0 md:ml-2 lg:mx-3 md:relative">
-                                <svg class="inline w-5 h-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                </svg>
-                            </a>
                         </div>
                         <div class="flex flex-col items-start justify-end w-full pt-4 md:items-center md:w-1/3 md:flex-row md:py-0">
-                            <?php if(!\App\Helpers\Auth::check()) : ?>
+                            <?php if(!auth()->check()) : ?>
                                 <a href="<?php echo route($routes->get('login')) ?>" class="w-full px-3 py-2 mr-0 text-gray-700 md:mr-2 lg:mr-3 md:w-auto">Sign In</a>
-                                <a href="<?php echo route($routes->get('register')) ?>" class="inline-flex items-center w-full px-6 py-3 text-sm font-medium leading-4 text-white bg-indigo-600 md:px-3 md:w-auto md:rounded-full lg:px-5 hover:bg-indigo-500 focus:outline-none md:focus:ring-2 focus:ring-0 focus:ring-offset-2 focus:ring-indigo-600">Sign Up</a>
+                                <a href="<?php echo route($routes->get('register')) ?>" class="button-pill">Sign Up</a>
                             <?php else : ?>
                                 <span class="w-full, px-3 py-2 mr-0 text-gray-700">
-                                    Hi <?php echo \App\Helpers\Auth::user()->name ?>!
+                                    Hi <?php echo auth()->user()->name ?>!
                                 </span>
-                                <a href="<?php echo route($routes->get('logout')) ?>" class="w-full px-3 py-2 mr-0 text-gray-700 md:mr-2 lg:mr-3 md:w-auto link">Logout</a>
+                                <a href="<?php echo route($routes->get('logout')) ?>" class="button-pill">Logout</a>
                             <?php endif; ?>
                         </div>
                     </div>
