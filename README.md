@@ -13,7 +13,9 @@
 
 4. Open your config/config.php file and change the database name (DB_DATABASE) to whatever you have, username (DB_USERNAME) and password (DB_PASSWORD) field correspond to your configuration.
 
-5. Run ```npm run dev``` (Run ```npm run watch``` for development) (Run ```npm run build``` for production)
+5. Import notebooks.sql
+
+6. Run ```npm run dev``` (Run ```npm run watch``` for development) (Run ```npm run build``` for production)
 
 ### Recommended development hosting ###
 
