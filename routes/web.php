@@ -46,3 +46,4 @@ $routes->add('processors.update', Route::post('/processors/{id}/update', [Proces
 $routes->add('processors.delete', Route::get('/processors/{id}/delete', [ProcessorController::class, 'delete']));
 
 $routes->add('mnb', Route::get('/mnb', [MNBController::class, 'index']));
+$routes->add('mnb.post', Route::post('/mnb/post', [MNBController::class, 'GetExchangeRates']));

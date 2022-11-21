@@ -31,11 +31,7 @@ class MNBController extends Controller
                     'unit1' => '',
                     'unit2' => '',
                     'rate1' => '',
-                    'rate2' => '',
-                    'curr1Error' => '',
-                    'curr2Error' => '',
-                    'rate1Error' => '',
-                    'rate2Error' => ''];
+                    'rate2' => ''];
 
         return $this->view('mnb', [
 			'data' => $data
@@ -48,16 +44,14 @@ class MNBController extends Controller
 	 */
     public function GetExchangeRates()
     {
+        $error = false;
+
         $data = ['curr1' => '',
                     'curr2' => '',
                     'unit1' => '',
                     'unit2' => '',
                     'rate1' => '',
-                    'rate2' => '',
-                    'curr1Error' => '',
-                    'curr2Error' => '',
-                    'rate1Error' => '',
-                    'rate2Error' => ''];
+                    'rate2' => ''];
 
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
@@ -68,43 +62,45 @@ class MNBController extends Controller
                         'unit1' => '',
                         'unit2' => '',
                         'rate1' => '',
-                        'rate2' => '',
-                        'curr1Error' => '',
-                        'curr2Error' => '',
-                        'rate1Error' => '',
-                        'rate2Error' => ''];
+                        'rate2' => ''];
 
             /* Validating inputs */
             $currencieValidation = "/^[A-Z]*$/";
 
             if(empty($data['curr1']))
             {
-                $data['curr1Error'] = 'Please specify from which currency do you want to convert.';
+                $error = true;
+                Input::throwError('Please specify from which currency do you want to convert');
             }
             elseif(!preg_match($currencieValidation, $data['curr1']) || strlen($data['curr1']) != 3)
             {
-                $data['curr1Error'] = 'Invalid currency! Please try again. (e.g.: HUF, EUR)';
+                $error = true;
+                Input::throwError('Invalid currency! Please try again. (e.g.: HUF, EUR)');
             }
             elseif(!$this->ValidateCurrencies($data['curr1']))
             {
-                $data['curr1Error'] = $data['curr1'] . ' currency is not in our databanks. Please try another one.';
+                $error = true;
+                Input::throwError($data['curr1'] . ' currency is not in our databanks. Please try another one');
             }
 
             if(empty($data['curr2']))
             {
-                $data['curr2Error'] = 'Please specify to which currency do you want to convert.';
+                $error = true;
+                Input::throwError('Please specify to which currency do you want to convert');
             }
             elseif(!preg_match($currencieValidation, $data['curr2']) || strlen($data['curr2']) != 3)
             {
-                $data['curr2Error'] = 'Invalid currency! Please try again. (e.g.: HUF, EUR)';
+                $error = true;
+                Input::throwError('Invalid currency! Please try again. (e.g.: HUF, EUR)');
             }
             elseif(!$this->ValidateCurrencies($data['curr2']))
             {
-                $data['curr2Error'] = $data['curr2'] . ' currency is not in our databanks. Please try another one.';
+                $error = true;
+                Input::throwError($data['curr2'] . ' currency is not in our databanks. Please try another one');
             }
 
             /* If everything is ok we search for the exchange rates */
-            if(empty($data['curr1Error']) && empty($data['curr2Error']))
+            if($error == false)
             {
                 try
                 {
@@ -132,7 +128,9 @@ class MNBController extends Controller
                 }
                 catch (SoapFault $e)
                 {
-                    var_dump($e);
+                    return $this->view('index', [
+                        'errors' => $e->getMessage()
+                    ]);
                 }
 
                 $rate1 = 0;
@@ -171,15 +169,17 @@ class MNBController extends Controller
 
                 if($rate1 == 0)
                 {
-                    $data['rate1Error'] = 'There are no information about the ' . $data['curr1'] . ' currency at this date.';
+                    $error = true;
+                    Input::throwError('There are no information about the ' . $data['curr1'] . ' currency at this date.');
                 }
                 if($rate2 == 0)
                 {
-                    $data['rate2Error'] = 'There are no information about the ' . $data['curr2'] . ' currency at this date.';
+                    $error = true;
+                    Input::throwError('There are no information about the ' . $data['curr2'] . ' currency at this date.');
                 }
 
                 /* If we got both exchange rates we calculate the exchange rate between the two currencies */
-                if(empty($data['rate1Error']) && empty($data['rate2Error']))
+                if($error == false)
                 {
                     $f_unit1 = floatval($unit1);
                     $f_unit2 = floatval($unit2);
@@ -217,11 +217,7 @@ class MNBController extends Controller
                         'unit1' => '',
                         'unit2' => '',
                         'rate1' => '',
-                        'rate2' => '',
-                        'curr1Error' => '',
-                        'curr2Error' => '',
-                        'rate1Error' => '',
-                        'rate2Error' => ''];
+                        'rate2' => ''];
         }
 
         return $this->view('mnb', $data);
@@ -243,7 +239,9 @@ class MNBController extends Controller
         }
         catch (SoapFault $e)
         {
-            var_dump($e);
+            return $this->view('index', [
+				'errors' => $e->getMessage()
+			]);
         }
 
         if(in_array($curr, $array))

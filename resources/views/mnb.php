@@ -6,62 +6,50 @@ include("../resources/views/layouts/header.php");
             <h1 class="text-2xl font-semibold text-gray-700 mb-8">
                 The Hungarian National Bank currency exchangerates
             </h1>
+            <h3 class="mb-6 text-2xl font-medium text-center">Search for exchanges:</h3>
 
-            <div class="container_data">
-	            <h2>Search for exchanges:</h2>
+            <?php include_once '../resources/views/shared/status.php' ?>
+            <?php include_once '../resources/views/shared/errors.php' ?>
 
-                <div class="wrapper_data">
-                    <form action="<?php echo URLROOT; ?>/mnb/GetExchangeRates" method ="POST">
-                        <input type="text" placeholder="From currency" name="curr1">
-                        <span class="invalidFeedback">
-                            <?php echo $data['curr1Error']; ?>
-                        </span>
-                        
-                        <input type="text" placeholder="To currency" name="curr2">
-                        <span class="invalidFeedback">
-                            <?php echo $data['curr2Error']; ?>
-                        </span>
-
-                        <button id="search" type="submit" value="submit">Exchange</button>
-                    </form>
-
-                    <span class="invalidFeedback">
-                        <?php echo $data['rate1Error']; ?>
-                        <?php echo $data['rate2Error']; ?>
-                    </span>
+            <form action="<?php echo route($routes->get('mnb.post')) ?>" method="POST">
+                <input type="text" name="curr1" id="curr1" class="block w-full px-4 py-3 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" data-rounded="rounded-lg" data-primary="blue-500" placeholder="Currency from" required>
+                <input type="text" name="curr2" id="curr2" class="block w-full px-4 py-3 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" data-rounded="rounded-lg" data-primary="blue-500" placeholder="Currency to" required>
+                <div class="block">
+                    <button type="submit" class="w-full px-3 py-4 font-medium text-white bg-blue-600 rounded-lg" data-primary="blue-600" data-rounded="rounded-lg">Convert</button>
                 </div>
+            </form>
 
-                <div id="currencies_item">
-                    <?php if(!empty($data['curr1'])): ?>
-                        <h2>Results:</h2>
-                        <table>
-                            <tr>
-                                <th><?php echo $data['curr1']; ?></th>
-                                <th><?php echo $data['curr2']; ?></th>
-                            </tr>
-                            <tr>
-                                <td><?php echo $data['unit1']; ?></td>
-                                <td><?php echo $data['rate1']; ?></td>
-                            </tr>
-                        </table>
-                        <br>
-                        <h2>Exchange back:</h2>
-                        <table>
-                            <tr>
-                                <th><?php echo $data['curr2']; ?></th>
-                                <th><?php echo $data['curr1']; ?></th>
-                            </tr>
-                            <tr>
-                                <td><?php echo $data['unit2']; ?></td>
-                                <td><?php echo $data['rate2']; ?></td>
-                            </tr>
-                        </table>
-                    <?php endif; ?>
-                </div>
+            <div class="overflow-x-scroll">
+                <table>
+                    <tr class="text-left font-bold">
+                        <th class="th-class"><span class="th-content">Unit</span></th>
+                        <th class="th-class"><span class="th-content">Rate</span></th>
+                        <th class="th-class"><span class="th-content">Exchange back unit</span></th>
+                        <th class="th-class"><span class="th-content">Exchange back rate</span></th>
+                    </tr>
+                    <tbody>
+                    <?php foreach($rates as $rate) { ?>
+                        <tr class="tr-class">
+                            <td class="td-class">
+                                <span class="td-content"><?php echo $rate['unit1']; ?></span>
+                            </td>
+                            <td class="td-class">
+                                <span class="td-content"><?php echo $rate['rate1']; ?></span>
+                            </td>
+                            <td class="td-class">
+                                <span class="td-content"><?php echo $rate['unit2']; ?></span>
+                            </td>
+                            <td class="td-class">
+                                <span class="td-content"><?php echo $rate['rate2']; ?></span>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     <section>
-
+        
 <?php
 include("../resources/views/layouts/footer.php");
 ?>
