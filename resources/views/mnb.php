@@ -18,32 +18,29 @@ include("../resources/views/layouts/header.php");
                     <button type="submit" class="w-full px-3 py-4 font-medium text-white bg-blue-600 rounded-lg" data-primary="blue-600" data-rounded="rounded-lg">Convert</button>
                 </div>
             </form>
-
             <div class="overflow-x-scroll">
                 <table>
                     <tr class="text-left font-bold">
-                        <th class="th-class"><span class="th-content">Unit</span></th>
-                        <th class="th-class"><span class="th-content">Rate</span></th>
-                        <th class="th-class"><span class="th-content">Exchange back unit</span></th>
-                        <th class="th-class"><span class="th-content">Exchange back rate</span></th>
+                        <th class="th-class"><span class="th-content">Currency from</span></th>
+                        <th class="th-class"><span class="th-content">Currency to</span></th>
                     </tr>
                     <tbody>
-                    <?php foreach($rates as $rate) { ?>
                         <tr class="tr-class">
                             <td class="td-class">
-                                <span class="td-content"><?php echo $rate['unit1']; ?></span>
+                                <span class="td-content"><?php echo $data['unit1'] . " " . $data['curr1']; ?></span>
                             </td>
                             <td class="td-class">
-                                <span class="td-content"><?php echo $rate['rate1']; ?></span>
-                            </td>
-                            <td class="td-class">
-                                <span class="td-content"><?php echo $rate['unit2']; ?></span>
-                            </td>
-                            <td class="td-class">
-                                <span class="td-content"><?php echo $rate['rate2']; ?></span>
+                                <span class="td-content"><?php echo $data['rate1'] . " " . $data['curr2']; ?></span>
                             </td>
                         </tr>
-                    <?php } ?>
+                        <tr class="tr-class">
+                            <td class="td-class">
+                                <span class="td-content"><?php echo $data['unit2'] . " " . $data['curr2']; ?></span>
+                            </td>
+                            <td class="td-class">
+                                <span class="td-content"><?php echo $data['rate2'] . " " . $data['curr1']; ?></span>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

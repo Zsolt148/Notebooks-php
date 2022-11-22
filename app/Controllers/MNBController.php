@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Helpers\Input;
 use App\Helpers\RouteCollection;
 use Exception;
+use SoapClient;
 
 class MNBController extends Controller
 {
@@ -188,24 +189,48 @@ class MNBController extends Controller
 
                     if($data['curr1'] == "HUF")
                     {
+                        $div_rate = $f_unit2 / $f_rate2;
+                        if($div_rate < 1)
+                        {
+                            $unit1 = 100;
+                            $div_rate = $div_rate * 100;
+                        }
                         $data['unit1'] = $unit2;
-                        $data['rate1'] = $rate2;
+                        $data['rate1'] = round(floatval($rate2), 2);
                         $data['unit2'] = $unit1;
-                        $data['rate2'] = $f_unit2 / $f_rate2;
+                        $data['rate2'] = round($div_rate, 2);
                     }
                     elseif($data['curr2'] == "HUF")
                     {
+                        $div_rate = $f_unit1 / $f_rate1;
+                        if($div_rate < 1)
+                        {
+                            $unit2 = 100;
+                            $div_rate = $div_rate * 100;
+                        }
                         $data['unit1'] = $unit2;
-                        $data['rate1'] = $f_unit1 / $f_rate1;
+                        $data['rate1'] = round($div_rate, 2);
                         $data['unit2'] = $unit1;
-                        $data['rate2'] = $rate1; 
+                        $data['rate2'] = round(floatval($rate1), 2);
                     }
                     else
                     {
+                        $div_rate1 = ($f_unit1 / $f_rate1 * $f_unit1) * ($f_rate2 / $f_unit2);
+                        $div_rate2 = ($f_unit2 / $f_rate2 * $f_unit2) * ($f_rate1 / $f_unit1);
+                        if($div_rate1 < 1)
+                        {
+                            $unit1 = 100;
+                            $div_rate1 = $div_rate1 * 100;
+                        }
+                        if($div_rate2 < 1)
+                        {
+                            $unit2 = 100;
+                            $div_rate2 = $div_rate2 * 100;
+                        }
                         $data['unit1'] = $unit1;
-                        $data['rate1'] = ($f_unit1 / $f_rate1 * $f_unit1) * ($f_rate2 / $f_unit2);
+                        $data['rate1'] = round($div_rate1, 2);
                         $data['unit2'] = $unit2;
-                        $data['rate2'] = ($f_unit2 / $f_rate2 * $f_unit2) * ($f_rate1 / $f_unit1);
+                        $data['rate2'] = round($div_rate2, 2);
                     }
                 }
             }
@@ -220,7 +245,7 @@ class MNBController extends Controller
                         'rate2' => ''];
         }
 
-        return $this->view('mnb', $data);
+        return $this->view('mnb', ['data' => $data]);
     }
 
     /* Function to validate input currencie */
