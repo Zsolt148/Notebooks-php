@@ -21,8 +21,7 @@
 
 1. Go to your xampp extra folder. Ex.: D:\xampp\apache\conf\extra
 2. Open httpd-vhosts.conf
-3. Add:
-```<VirtualHost *:80>
+3. Add: ```<VirtualHost *:80>
      ServerName notebooks.test
      DocumentRoot "C:\xampp\htdocs\Notebooks-php\public"
      <Directory "C:\xampp\htdocs\Notebooks-php\public">
@@ -33,6 +32,7 @@
 	      Options Indexes FollowSymLinks
      </Directory>
    </VirtualHost>```
+
    NOTE! The "path to project" has to point to the public folder in the project (e.g.: "C:\xampp\htdocs\Notebooks-php\public")!
 4. Open C:\Windows\System32\drivers\etc
 5. Add ```127.0.0.1 notebooks.test```
