@@ -21,13 +21,19 @@
 
 1. Go to your xampp extra folder. Ex.: D:\xampp\apache\conf\extra
 2. Open httpd-vhosts.conf
-3. Add: ```<VirtualHost *:80> ServerName notebooks.test DocumentRoot "path to project" <Directory "path to project">
-   DirectoryIndex index.php
-   AllowOverride All
-   Order allow,deny
-   Allow from all
-   </Directory>
+3. Add:
+```<VirtualHost *:80>
+     ServerName notebooks.test
+     DocumentRoot "C:\xampp\htdocs\Notebooks-php\public"
+     <Directory "C:\xampp\htdocs\Notebooks-php\public">
+         DirectoryIndex index.php
+         AllowOverride All
+	      Order allow,deny
+	      Allow from all
+	      Options Indexes FollowSymLinks
+     </Directory>
    </VirtualHost>```
+   NOTE! The "path to project" has to point to the public folder in the project (e.g.: "C:\xampp\htdocs\Notebooks-php\public")!
 4. Open C:\Windows\System32\drivers\etc
 5. Add ```127.0.0.1 notebooks.test```
 6. Restart xampp and go to http://notebooks.test in a browser
