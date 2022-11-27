@@ -5,9 +5,14 @@ include("../resources/views/layouts/header.php");
         <div class="px-10 py-24 mx-auto max-w-7xl">
             <h1 class="text-2xl font-semibold text-gray-700 mb-8">Show</h1>
 
-            <a class="mt-5" href="<?php echo route($routes->get('processors.edit'), $processor['id']); ?>">
-                Edit
-            </a>
+			<?php $disabled = true; ?>
+			<?php include_once 'form.php' ?>
+
+            <?php if(auth()->check()) : ?>
+                <a class="mt-5" href="<?php echo route($routes->get('processors.edit'), $processor['id']); ?>">
+                    Edit
+                </a>
+			<?php endif; ?>
         </div>
     </section>
 <?php

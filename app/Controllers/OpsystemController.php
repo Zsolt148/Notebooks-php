@@ -33,6 +33,8 @@ class OpsystemController extends Controller
 	 */
 	public function create()
 	{
+		abort_if(!auth()->check());
+
 		return $this->view('create');
 	}
 
@@ -41,6 +43,8 @@ class OpsystemController extends Controller
 	 */
 	public function store()
 	{
+		abort_if(!auth()->check());
+
 		try {
 			$validated = $this->validate([
 				'os_name' => ['required', 'string']
@@ -75,6 +79,8 @@ class OpsystemController extends Controller
 	 */
 	public function edit(int $id)
 	{
+		abort_if(!auth()->check());
+
 		return $this->view('edit', [
 			'opsystem' => Opsystem::query()->findOrFail($id)
 		]);
@@ -86,6 +92,8 @@ class OpsystemController extends Controller
 	 */
 	public function update(int $id)
 	{
+		abort_if(!auth()->check());
+
 		try {
 			$validated = $this->validate([
 				'os_name' => ['required', 'string']
@@ -109,6 +117,8 @@ class OpsystemController extends Controller
 	 */
 	public function delete(int $id)
 	{
+		abort_if(!auth()->check());
+
 		$opsystem = Opsystem::query()->delete($id);
 
 		if($opsystem) {

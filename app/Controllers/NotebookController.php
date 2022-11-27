@@ -85,7 +85,9 @@ class NotebookController extends Controller
     public function show(int $id)
     {
 		return $this->view('show', [
-			'notebook' => Notebook::query()->findOrFail($id)
+			'notebook' => Notebook::query()->findOrFail($id),
+			'opsystems' => Opsystem::query()->getAll(),
+			'processors' => Processor::query()->getAll()
 		]);
     }
 

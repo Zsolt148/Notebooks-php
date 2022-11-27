@@ -38,16 +38,18 @@ include("../resources/views/layouts/header.php");
                                 View
                             </a>
                         </td>
-                        <td class="td-class">
-                            <a class="td-content link" href="<?php echo route($routes->get('processors.edit'), $pro['id']); ?>">
-                                Edit
-                            </a>
-                        </td>
-                        <td class="td-class">
-                            <a class="td-content link" href="<?php echo route($routes->get('processors.delete'), $pro['id']); ?>">
-                                Delete
-                            </a>
-                        </td>
+						<?php if(auth()->check()) : ?>
+                            <td class="td-class">
+                                <a class="td-content link" href="<?php echo route($routes->get('processors.edit'), $pro['id']); ?>">
+                                    Edit
+                                </a>
+                            </td>
+                            <td class="td-class">
+                                <a class="td-content link" href="<?php echo route($routes->get('processors.delete'), $pro['id']); ?>">
+                                    Delete
+                                </a>
+                            </td>
+                        <?php endif; ?>
                     </tr>
                 <?php } ?>
                 </tbody>

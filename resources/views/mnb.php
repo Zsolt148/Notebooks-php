@@ -18,6 +18,7 @@ include("../resources/views/layouts/header.php");
                     <button type="submit" class="w-full px-3 py-4 font-medium text-white bg-blue-600 rounded-lg" data-primary="blue-600" data-rounded="rounded-lg">Convert</button>
                 </div>
             </form>
+            <?php if(isset($data) && !empty($data)) : ?>
             <div class="overflow-x-scroll">
                 <table>
                     <tr class="text-left font-bold">
@@ -44,6 +45,7 @@ include("../resources/views/layouts/header.php");
                     </tbody>
                 </table>
             </div>
+            <?php endif; ?>
         </div>
     <section>
         

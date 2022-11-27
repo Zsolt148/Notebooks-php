@@ -33,6 +33,8 @@ class ProcessorController extends Controller
 	 */
 	public function create()
 	{
+		abort_if(!auth()->check());
+
 		return $this->view('create');
 	}
 
@@ -41,6 +43,8 @@ class ProcessorController extends Controller
 	 */
 	public function store()
 	{
+		abort_if(!auth()->check());
+
 		try {
 			$validated = $this->validate([
                 'manufacturer' => ['required', 'string'],
@@ -76,6 +80,8 @@ class ProcessorController extends Controller
 	 */
 	public function edit(int $id)
 	{
+		abort_if(!auth()->check());
+
 		return $this->view('edit', [
 			'processor' => Processor::query()->findOrFail($id)
 		]);
@@ -87,6 +93,8 @@ class ProcessorController extends Controller
 	 */
 	public function update(int $id)
 	{
+		abort_if(!auth()->check());
+
 		try {
 			$validated = $this->validate([
                 'manufacturer' => ['required', 'string'],
@@ -102,7 +110,7 @@ class ProcessorController extends Controller
 
 		Processor::query()->update($id, $validated);
 
-		return redirect(route($this->routes->get('processor.index')), 'Successfully updated');
+		return redirect(route($this->routes->get('processors.index')), 'Successfully updated');
 	}
 
 	/**
@@ -111,10 +119,12 @@ class ProcessorController extends Controller
 	 */
 	public function delete(int $id)
 	{
+		abort_if(!auth()->check());
+
 		$processor = Processor::query()->delete($id);
 
 		if($processor) {
-			return redirect(route($this->routes->get('processor.index')), 'Successfully deleted');
+			return redirect(route($this->routes->get('processors.index')), 'Successfully deleted');
 		}
 	}
 }

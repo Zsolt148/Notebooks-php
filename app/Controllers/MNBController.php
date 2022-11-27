@@ -27,16 +27,7 @@ class MNBController extends Controller
 	 */
     public function index()
     {
-        $data = ['curr1' => '',
-                    'curr2' => '',
-                    'unit1' => '',
-                    'unit2' => '',
-                    'rate1' => '',
-                    'rate2' => ''];
-
-        return $this->view('mnb', [
-			'data' => $data
-		]);
+        return $this->view('mnb');
     }
 
     /* Get exchange rates between two currencies */
@@ -47,58 +38,68 @@ class MNBController extends Controller
     {
         $error = false;
 
-        $data = ['curr1' => '',
-                    'curr2' => '',
-                    'unit1' => '',
-                    'unit2' => '',
-                    'rate1' => '',
-                    'rate2' => ''];
+        $data = [
+			'curr1' => '',
+			'curr2' => '',
+			'unit1' => '',
+			'unit2' => '',
+			'rate1' => '',
+			'rate2' => ''
+		];
 
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $data = ['curr1' => trim($_POST['curr1']),
-                        'curr2' => trim($_POST['curr2']),
-                        'unit1' => '',
-                        'unit2' => '',
-                        'rate1' => '',
-                        'rate2' => ''];
+            $data = [
+				'curr1' => trim($_POST['curr1']),
+				'curr2' => trim($_POST['curr2']),
+				'unit1' => '',
+				'unit2' => '',
+				'rate1' => '',
+				'rate2' => ''
+			];
 
             /* Validating inputs */
             $currencieValidation = "/^[A-Z]*$/";
 
-            if(empty($data['curr1']))
-            {
-                $error = true;
-                Input::throwError('Please specify from which currency do you want to convert');
-            }
-            elseif(!preg_match($currencieValidation, $data['curr1']) || strlen($data['curr1']) != 3)
-            {
-                $error = true;
-                Input::throwError('Invalid currency! Please try again. (e.g.: HUF, EUR)');
-            }
-            elseif(!$this->ValidateCurrencies($data['curr1']))
-            {
-                $error = true;
-                Input::throwError($data['curr1'] . ' currency is not in our databanks. Please try another one');
-            }
+			try {
+				if(empty($data['curr1']))
+				{
+					$error = true;
+					Input::throwError('Please specify from which currency do you want to convert');
+				}
+				elseif(!preg_match($currencieValidation, $data['curr1']) || strlen($data['curr1']) != 3)
+				{
+					$error = true;
+					Input::throwError('Invalid currency! Please try again. (e.g.: HUF, EUR)');
+				}
+				elseif(!$this->ValidateCurrencies($data['curr1']))
+				{
+					$error = true;
+					Input::throwError($data['curr1'] . ' currency is not in our databanks. Please try another one');
+				}
 
-            if(empty($data['curr2']))
-            {
-                $error = true;
-                Input::throwError('Please specify to which currency do you want to convert');
-            }
-            elseif(!preg_match($currencieValidation, $data['curr2']) || strlen($data['curr2']) != 3)
-            {
-                $error = true;
-                Input::throwError('Invalid currency! Please try again. (e.g.: HUF, EUR)');
-            }
-            elseif(!$this->ValidateCurrencies($data['curr2']))
-            {
-                $error = true;
-                Input::throwError($data['curr2'] . ' currency is not in our databanks. Please try another one');
-            }
+				if(empty($data['curr2']))
+				{
+					$error = true;
+					Input::throwError('Please specify to which currency do you want to convert');
+				}
+				elseif(!preg_match($currencieValidation, $data['curr2']) || strlen($data['curr2']) != 3)
+				{
+					$error = true;
+					Input::throwError('Invalid currency! Please try again. (e.g.: HUF, EUR)');
+				}
+				elseif(!$this->ValidateCurrencies($data['curr2']))
+				{
+					$error = true;
+					Input::throwError($data['curr2'] . ' currency is not in our databanks. Please try another one');
+				}
+			} catch(Exception $e) {
+				return $this->view('mnb', [
+					'errors' => $e->getMessage()
+				]);
+			}
 
             /* If everything is ok we search for the exchange rates */
             if($error == false)
@@ -237,15 +238,19 @@ class MNBController extends Controller
         }
         else
         {
-            $data = ['curr1' => '',
-                        'curr2' => '',
-                        'unit1' => '',
-                        'unit2' => '',
-                        'rate1' => '',
-                        'rate2' => ''];
+            $data = [
+				'curr1' => '',
+				'curr2' => '',
+				'unit1' => '',
+				'unit2' => '',
+				'rate1' => '',
+				'rate2' => ''
+			];
         }
 
-        return $this->view('mnb', ['data' => $data]);
+        return $this->view('mnb', [
+			'data' => $data
+		]);
     }
 
     /* Function to validate input currencie */
@@ -264,7 +269,7 @@ class MNBController extends Controller
         }
         catch (SoapFault $e)
         {
-            return $this->view('index', [
+            return $this->view('mnb', [
 				'errors' => $e->getMessage()
 			]);
         }
