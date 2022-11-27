@@ -60,7 +60,7 @@ abstract class Model implements ModelInterface, CrudInterface
 	/**
 	 * @return static
 	 */
-	public static function query() : static
+	public static function query()
 	{
 		return (new static);
 	}

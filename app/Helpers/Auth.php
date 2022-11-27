@@ -9,7 +9,7 @@ class Auth
 	/**
 	 * @return static
 	 */
-	public static function make() : static
+	public static function make()
 	{
 		return (new static);
 	}
