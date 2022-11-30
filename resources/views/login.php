@@ -1,5 +1,5 @@
 <?php
-include("../resources/views/layouts/header.php");
+include(APP_ROOT . "/resources/views/layouts/header.php");
 ?>
 <section class="w-full px-8 py-16 antialiased">
 	<div class="max-w-7xl mx-auto">
@@ -8,8 +8,8 @@ include("../resources/views/layouts/header.php");
             <div class="w-full sm:max-w-lg p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 rounded-lg shadow-2xl px-7" data-rounded="rounded-lg" data-rounded-max="rounded-full">
                 <h3 class="mb-6 text-2xl font-medium text-center">Sign in to your Account</h3>
 
-				<?php include_once '../resources/views/shared/status.php' ?>
-				<?php include_once '../resources/views/shared/errors.php' ?>
+				<?php include_once APP_ROOT . '/resources/views/shared/status.php' ?>
+				<?php include_once APP_ROOT . '/resources/views/shared/errors.php' ?>
 
                 <form action="<?php echo route($routes->get('login.post')) ?>" method="POST">
                     <input type="text" name="email" id="email" class="block w-full px-4 py-3 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" data-rounded="rounded-lg" data-primary="blue-500" placeholder="Email address" required>
@@ -25,5 +25,5 @@ include("../resources/views/layouts/header.php");
 	</div>
 </section>
 <?php
-include("../resources/views/layouts/footer.php");
+include(APP_ROOT . "/resources/views/layouts/footer.php");
 ?>

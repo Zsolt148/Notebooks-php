@@ -1,5 +1,5 @@
 <?php
-include("../resources/views/layouts/header.php");
+include(APP_ROOT . "/resources/views/layouts/header.php");
 ?>
     <section class="w-full px-6 pb-12 antialiased bg-white">
         <div class="px-10 mx-auto max-w-7xl">
@@ -8,8 +8,8 @@ include("../resources/views/layouts/header.php");
             </h1>
             <h3 class="mb-6 text-2xl font-medium text-center">Search for exchanges:</h3>
 
-            <?php include_once '../resources/views/shared/status.php' ?>
-            <?php include_once '../resources/views/shared/errors.php' ?>
+            <?php include_once APP_ROOT . '/resources/views/shared/status.php' ?>
+            <?php include_once APP_ROOT . '/resources/views/shared/errors.php' ?>
 
             <form action="<?php echo route($routes->get('mnb.post')) ?>" method="POST">
                 <input type="text" name="curr1" id="curr1" class="block w-full px-4 py-3 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" data-rounded="rounded-lg" data-primary="blue-500" placeholder="Currency from" required>
@@ -50,5 +50,5 @@ include("../resources/views/layouts/header.php");
     <section>
         
 <?php
-include("../resources/views/layouts/footer.php");
+include(APP_ROOT . "/resources/views/layouts/footer.php");
 ?>
